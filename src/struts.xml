@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+  <!-- struts 常量配置  start -->
+  <!-- 在Struts.properties中配置 -->
+  <!-- struts 常量配置 end -->
+  <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+  <package name="serverBase" extends="struts-default" abstract="true"> <!-- 原继承struts-default -->
+      <global-results>  
+		  <result name="loginpage">login.jsp</result>
+		  <result name="errorpage">login.jsp</result>  
+		  <result name="successpage">index.jsp</result>
+      </global-results> 
+  </package>
+  
+  <package name="servermain" namespace="/" extends="serverBase">
+      <action name="*_*" class="{1}Action" method="{2}">
+      
+	  </action>
+  </package>
+  
+ 
+  
+  <include file="struts-system.xml"></include>
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+

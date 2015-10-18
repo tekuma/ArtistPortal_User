@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	<!-- 定时器功能加入了
+	xmlns:task="http://www.springframework.org/schema/task"
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	-->
+	
+	<!-- property文件配置   可在配置中用${...}代替配置文件中的内容 start -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>WEB-INF/config/dbconns.properties</value>
+			</list>
+		</property>
+	</bean>
+    <!-- property文件配置 end -->
+    
+    <!-- 注解方式注入的包范围 start -->
+	<context:component-scan base-package="com.pintu.*"/>
+	<context:annotation-config/>
+	<!-- 注解方式注入的包范围 end -->
+	
+    <!-- 建立数据库连接 start -->
+	<bean id="sensePowerDBS" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- sensePowerDBS数据源连接字符串信息 -->
+		<property name="driverClassName" value="${sensePowerDBS.driverClassName}" />
+		<property name="url" value="${sensePowerDBS.url}" />
+		<property name="username" value="${sensePowerDBS.username}" />
+		<property name="password" value="${sensePowerDBS.password}" />
+		<!-- 连接池配置 -->
+		<!-- 连接池启动时的初始值 -->
+		<property name="initialSize" value="${dbcp.initialSize}" />
+		<!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 -->
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<!--  最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请 -->
+		<property name="minIdle" value="${dbcp.minIdle}" />
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="maxWait" value="${dbcp.maxWait}" />	
+		<!-- 连接池连接校验（防止连接因某原因断掉后再DBCP取的连接都是失效的连，某些资料中只设置testOnBorrow为Ture，某些让全设置，有待检验） -->
+		<property name="validationQuery" value="select 1 from dual"/>
+		<property name="testOnBorrow" value="true"/>
+		<property name="testOnReturn" value="true"/> 
+		<property name="testWhileIdle" value="true"/>
+	</bean>
+	<!-- 建立数据库连接 end -->
+	
+	<!-- 事务管理配置 start -->
+	<!-- 首先定义事务处理类，不同的数据访问方式，事务处理类不同   
+    	Hibernate操作的HibernateTransactionManager，JDBC操作的使用DataSourceTransactionManager-->  
+	<bean id="sensePowerManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+	    <property name="dataSource" ref="sensePowerDBS"/> 
+	</bean>  
+	<!-- 定义事务通知：配置tx/aop声明式事务 -->  
+	<tx:advice id="sensePowerAdvice" transaction-manager="sensePowerManage">  
+	    <!-- 定义方法的过滤规则 -->  
+	    <tx:attributes>  
+	        <!-- 定义find、get、save、update开头的方法都使用事务，同时定义所有get、find开头的方法都是只读的，
+	            	注意类中方法名的定义 -->  
+	        <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+	        <tx:method name="save*" propagation="REQUIRED"/>  
+	        <!-- update 是跳入修改界面，save才真正用于保存 
+	        <tx:method name="update*" propagation="REQUIRED"/>
+	        -->     
+	        <tx:method name="delete*" propagation="REQUIRED"/>     
+	    </tx:attributes>  
+	</tx:advice>  
+	<!-- 定义AOP配置 -->   
+	<aop:config>		
+	    <!-- 定义一个切入点 -->  
+	    <aop:pointcut id="sensePowerServiceMethods" expression="execution(* com.*.service.*.*(..))" /> 
+	    <!-- 对切入点和事务的通知，进行适配 -->   
+	    <aop:advisor pointcut-ref="sensePowerServiceMethods" advice-ref="sensePowerAdvice" />  
+	</aop:config>  	
+    <!-- 事务管理配置 end -->
+    
+    <!-- project实例配置 start --> 
+	<!-- 集成 收费系统 jdbcTemplate -->
+	<bean id="sensePowerJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="sensePowerDBS"/>
+    </bean>
+    
+	<bean id="publicJdbcDao" class="com.pintu.server.comm.PublicJdbcDao">
+        <property name="JdbcTemplate" ref="sensePowerJdbcTemplate"/>
+        <property name="tempExcelExpPath" value="${sensePowerDBS.tempExcelExpPath}" />
+    </bean>
+	<!-- project实例配置 end -->
+	<!-- 定时任务   start-->
+	<task:annotation-driven/><!-- 注解方式加入 -->
+	<!-- 定时任务end--> 
+</beans>
+

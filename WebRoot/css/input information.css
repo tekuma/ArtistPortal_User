@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,ul,li,ol,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,form,input{ margin:0; padding:0;}
+body{ color:#000; font-family:Arial;font-size:14px;}
+ul,ol{ list-style:none;}
+a{text-decoration:underline;color:#000000;}
+a:hover{ color:#df611e;color:#000000;}
+img{ border:none}
+input:focus{ outline:none} 
+.fl{ float:left}
+.fr{ float:right}
+.rel{ position:relative}
+.abs{ position:absolute}
+.clear{ clear:both; overflow:hidden;}
+
+.upload_profile_picture_header{ margin-top:6px; margin-right:97px;}
+.upload_profile_picture_footer{ width:100%; height:52px; background:url(../images/01_landing-page_10.jpg) repeat-x; position:absolute; bottom:0; line-height:52px;}
+.upload_profile_picture_footer span{ padding-right:83px;}
+.upload_profile_picture_content{ margin:0 auto; width:330px; height:490px; border:solid 1px #000000; margin-top:30px;}
+.upload_profile_picture_picture img{ width:150px; height:155px; margin-top:16%; margin-left:29%;}
+
+
+.upload_profile_picture_upload{display:block; width:125px; height:23px; border:solid 1px #a9acae; border-radius:5px; text-decoration:none; font-size:13px; text-align:center; line-height:23px; margin-left:33%; margin-top:32px; opacity:0;}
+.upload_profile_picture_upload_display_none{display:block; width:125px; height:23px; border:solid 1px #a9acae; border-radius:5px; text-decoration:none; font-size:13px; text-align:center; line-height:23px; position:absolute; top:44%; left:45.5%;}
+
+
+p{ margin-left:25%; margin-top:20px; color:#a3a3a3;}
+.upload_profile_picture_submit{ display:block; width:125px; height:23px; line-height:23px; border:solid 1px #a9acae; border-radius:5px; text-align:center; text-decoration:none; margin-top:31%; margin-left:33%;}
+
+/*裁剪框*/
+
+

@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+body,ul,li,ol,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,form,input{ margin:0; padding:0;}
+body{ color:#000; font-family:Arial;font-size:14px;}
+ul,ol{ list-style:none;}
+a{text-decoration:underline;color:#000000;}
+a:hover{ color:#df611e;color:#000000;}
+img{ border:none}
+input:focus{ outline:none} 
+.fl{ float:left}
+.fr{ float:right}
+.rel{ position:relative}
+.abs{ position:absolute}
+.clear{ clear:both; overflow:hidden;}
+
+#login_logo{display:block;width:181px; height:180px;margin:0 auto; margin-top:4%;margin-bottom:30px;}
+.login_header{ margin-left:83px;}
+input{float:left;width:225px;height:27px;margin:0 auto;border-radius:5px;border:solid 1px #ccc;margin-bottom:15px;padding-left:8px;}
+.index_input{width:235px;height:300px;margin:0 auto;position:relative;}
+.index_signup{display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;margin-top:15px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
+.index_signup:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
+.index_login{cursor:pointer;display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
+.index_login:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
+.login_footer{width:100%; height:52px; background:url(../images/01_landing-page_10.jpg) repeat-x; position:absolute; bottom:0; line-height:52px;}
+.login_footer span{padding-right:83px;}
+.index_or{width:230px;height:7px;margin:0 auto;margin-top:45px;margin-bottom:25px;}
+.index_or span{width:100px;height:1px;background:#ccc;margin-top:3px;}
+.index_or font{float:left;width:4px;height:4px;border-radius:2px;background:#ccc;margin-left:12px;margin-top:1px;}
+
+
+
+

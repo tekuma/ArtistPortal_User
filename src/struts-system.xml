@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="serverSystem" namespace="/system" extends="serverBase">
+	    
+	    <interceptors>
+	        <interceptor name="loginInteceptor" class="com.pintu.system.action.LoginInterceptor" />
+	        	<interceptor-stack name="loginStack">
+	               <interceptor-ref name="loginInteceptor">  
+                       <param name="excludeMethods">MemberFBLogin, goLogin,memberLogin,goRegist,goReset,goSignup,getCookes,registCode,saveResetPassword,sendMail,saveMemberInfo,goCutAvatar,saveUserHead </param>  
+                   </interceptor-ref> 
+	               <interceptor-ref name="defaultStack"/>
+				</interceptor-stack>
+		</interceptors>
+	    <default-interceptor-ref name="loginStack" />
+		<action name="*_*" class="{1}Action" method="{2}">
+		    <result name="index">index.jsp</result>
+        	<result name="worksIndex">/WEB-INF/jsp/collection.jsp</result>
+        	<result name="login">/WEB-INF/jsp/login.jsp</result>
+        	<result name="reset">/WEB-INF/jsp/reset.jsp</result>
+        	<result name="cutavatar">/WEB-INF/jsp/cutavatar.jsp</result>
+        	<result name="signup">/WEB-INF/jsp/signup.jsp</result>
+		 </action>
+	
+		
+	  <!-- 配置文件下载-->  
+	  <action name="download" class="com.pintu.system.action.FileDownloadAction">   
+	    <result name="success" type="stream">   
+	  		<!-- 配置文件下载类型为 txt--> 
+	        <param name="contentType">text/plain</param>   
+	  		<!-- 配置下载文件的来源流--> 
+	        <param name="inputName">inputStream</param>   
+	  		<!-- 配置文件下载后的文件名--> 
+	        <param name="contentDisposition">attachment;filename="Result.pintu"</param>   
+	 		<!-- 配置文件下载的缓冲区的大小--> 
+	        <param name="bufferSize">4096</param>   
+	    </result>   
+	 </action>   
+
+	  
+	  
+	</package>
+</struts>
+
