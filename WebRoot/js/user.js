@@ -8,8 +8,6 @@ function user_updateInfo(){
 		public_err_prompt("Last name can not be empty",$("#index_user_First_Name"));
 	}else if(last_name==undefined||last_name==""){
 		public_err_prompt("Name can not be empty",$("#index_user_last_Name"));
-	}else if(user_checkedGender==undefined||user_checkedGender==""){
-		public_err_prompt("Sex can not be empty",$(""));
 	}else if(first_name.length>64){
 		public_err_prompt("First name Can't be better than 64 characters",$("#index_user_First_Name"));
 	}else if(last_name.length>64){
@@ -22,7 +20,7 @@ function user_updateInfo(){
 		public_err_prompt("Bio Can't be better than 100 characters",$("#index_user_textarea"));
 	}else{
 		$.ajax({
-			url:"http://"+window.location.host+"/TekumaUserServer/system/system_updateUserInfo.do",
+			url:"system/system_updateUserInfo.do",
 			data:{"member.firstname":first_name,"member.lastname":last_name,
 				"member.location":location,"member.website":website,"member.bio":bio,"member.gender":user_checkedGender,
 				"headImg":$("#imgid_user_pic").attr("src")},
@@ -32,7 +30,7 @@ function user_updateInfo(){
 					public_err_prompt("Save avatar failure",$(""));
 				}else{
 					collection_initUserHeadPic(fileServerUrl+member.avatarpath);
-					$("#divid_collection_username").html(member.firstname+member.lastname);
+					$("#divid_collection_username").html(member.firstname+" "+member.lastname);
 				}
 				$("#index_user").slideUp(300);//关闭弹框
 			}
@@ -55,6 +53,7 @@ function Imageinitialization(){
 var user_checkedGender="";
 function user_selectGender(obj,selected){
 	user_checkedGender=selected;
+	//alert($(obj).attr('class'));
 	$("#gender div").removeClass("bbb");
 	$(obj).addClass("bbb");
 }

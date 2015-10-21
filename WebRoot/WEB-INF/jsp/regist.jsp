@@ -69,7 +69,7 @@ $(function(){
 			public_err_prompt("Description Must be 128 characters in the following",$("#input_information-2_area"));
 		}else{
 			$.ajax({
-				url:"http://"+window.location.host+"/TekumaUserServer/system/system_saveMemberInfo.do",
+				url:"system/system_saveMemberInfo.do",
 				type:"post",
 				data:{"member.loginname":email,"member.loginpwd":password,"member.lastname":lastname,
 						"member.firstname":firstname,"member.introduction":desc,"member.location":location,
@@ -99,7 +99,7 @@ $(function(){
 		}else{
 			regist_registEmail=email;
 			$.ajax({
-				url:"http://"+window.location.host+"/TekumaUserServer/system/system_sendMail.do",
+				url:"system/system_sendMail.do",
 				data:{"email":email,"userName":"qqq","type":"1","registCode":invitecode},
 				type:"post",
 				success:function(registcode){

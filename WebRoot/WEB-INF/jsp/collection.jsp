@@ -32,25 +32,37 @@
 var collection_uploadWork_timestamp=[];//上传作品时的时间戳集合
 $(function(){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_getServerFileUrl.do",
+		url:"system/system_getServerFileUrl.do",
 		type:"post",
 		success:function(fileUrl){
 			fileServerUrl=fileUrl;
 			$.ajax({
-				url:"http://"+window.location.host+"/TekumaUserServer/system/system_getServerusertxlj.do",
+				url:"system/system_getServerusertxlj.do",
 				type:"post",
-				success:function(txUrl){
-					collection_initUserHeadPic(fileServerUrl+txUrl);
+				success:function(Listset){
+					for(var i in Listset){
+						$("#divid_collection_username").html(Listset[i].firstname+" "+Listset[i].lastname);
+						$("#index_user_First_Name").val(Listset[i].firstname);
+						$("#index_user_last_Name").val(Listset[i].lastname);
+						if(Listset[i].gender!=""&&Listset[i].gender!=undefined){
+							if(Listset[i].gender=="1"){
+								$("#gender div").removeClass("bbb");
+								$("#male_div").addClass("bbb");
+							}else if(Listset[i].gender=="2"){
+								$("#gender div").removeClass("bbb");
+								$("#female_div").addClass("bbb");
+							}else{
+								$("#gender div").removeClass("bbb");
+								$("#custom_div").addClass("bbb");
+							}
+						}
+						collection_initUserHeadPic(fileServerUrl+Listset[i].avatarpath);
+					}
 				}
 			});
 		}
 	 }); 
 	
-	 $("#ul1 a").click(function(){ 
-		var i=$(this).index("#ul1 a");
-		$(".xf:eq("+i+")").fadeToggle(1000).siblings().hide();
-
-	});
 	
 	$("#nine_picture_close").click(function(){
 		  $("#nine_picture_t_window_zuopin").fadeOut(300);
@@ -61,10 +73,13 @@ $(function(){
 		  $("#divid_collection_bj1").fadeOut(300);
 		  $("#divid_collection_window1").fadeOut(300);
 	});
+	
 	$("#ul1 a").click(function(){
 		var i=$(this).index("#ul1 a");
-		$(".xf:eq("+i+")").show().siblings().hide();
+		$(".xf:eq("+i+")").fadeIn().siblings().hide();
 	});
+	
+	
 	collection_iniCollection();//加载收藏夹
 	//加载用户修改信息弹框
 	$("#imgid_collection_head").click(function(){
@@ -186,20 +201,20 @@ function poolajimg(){
 
 //初始化用户头像
 function collection_initUserHeadPic(headUrl){
-	alert(headUrl);
 	if(headUrl.indexOf("head") > 0){
-		$("#imgid_collection_headPic").attr("src",headUrl);
+		//$("#imgid_collection_headPic").attr("background-image",headUrl);
+		$("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"') center center no-repeat;background-size: 100% 100%;"); 
 		$("#imgid_user_pic").attr("src",headUrl);
 	}else{
-		$("#imgid_collection_headPic").attr("src","../images/Default Avatar.jpg");
-		$("#imgid_user_pic").attr("src","../images/Default Avatar.jpg");
+		/* $("#imgid_collection_headPic").attr("src","../images/Default Avatar.jpg");
+		$("#imgid_user_pic").attr("src","../images/Default Avatar.jpg"); */
 	}
 }
 
 //加载pool图片
 function collection_initPoolNextPage(){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_ajaxInitPool.do",
+		url:"system/system_ajaxInitPool.do",
 		data:{'page':$("#inputid_collection_page").val()},
 		type:"post",
 		success:function(pools){
@@ -263,14 +278,17 @@ function insert_flg(str,flg,sn){
 
 //切换pool/collection
 function collection_checkPoolAndCollection(checked){
-	if(checked=="pool"){
+	var classnamesa=document.getElementById("sa").className;
+	var classnamesb=document.getElementById("sb").className;
+	if(checked=="pool" && classnamesa=="scool"){
 		$("#sa").attr('class','');
 		$("#sb").attr('class','');
 		$("#sa").attr("class","spool");
 		$("#sb").attr("class","scool");
 		$("#spool").attr("class","spool2");
 		$("#scool").attr("class","scool2");
-	}else{
+	}
+	if(checked=="collection" && classnamesb=="scool"){
 		$("#sa").attr('class','');
 		$("#sb").attr('class','');
 		$("#sa").attr("class","scool");
@@ -342,7 +360,7 @@ function collection_checkPoolAndCollection(checked){
 			var temp3=$("#index_user_m").is(":hidden");//是否隐藏
 			var temp4=$("#index_setup_m").is(":hidden");//是否隐藏
 			if(temp==true&&temp2==true&&temp3==true&&temp4==true){
-				$("#cool_navigation").show();
+				$("#cool_navigation").fadeIn();
 			}else{
 				$("#cool_navigation").hide();
 			}
@@ -408,11 +426,11 @@ function collection_checkPoolAndCollection(checked){
 	<div id="cool_navigation" style="display: none;">
 		<nav class="navbar navbar-fixed-top" role="navigation">
 		<div class="container" id="container">
-			<span id="name">${member.firstname}&nbsp;${member.lastname}</span>
+			<%-- <span id="name">${member.firstname}&nbsp;${member.lastname}</span> --%>
 			<ul id="ul2">
-				<li><a onclick="collection_checknavigation('pool')" id="spool"
-					class="spool2">Your Pool</a></li>
-				<li><a onclick="collection_checknavigation('collection')"
+				<li><a href="javascript:void(0)" onclick="collection_checknavigation('pool')" id="spool"
+					class="spool2">All Your Work</a></li>
+				<li><a href="javascript:void(0)" onclick="collection_checknavigation('collection')"
 					id="scool" class="scool2">Your Collection</a></li>
 			</ul>
 		</div>
@@ -422,14 +440,14 @@ function collection_checkPoolAndCollection(checked){
 
 <div id="test">
 <div class="collection_header">
-<img id="collection_logo"  src="../images/jgugj_03.jpg" alt="" /> 
+<a href="http://tekuma.io/" class="collection_logo_c"><img id="collection_logo"  src="../images/jgugj_03.jpg" alt="" /></a> 
 <a class="collection_startup"><img src="../images/04_add-artworks-into-your-pool_05.jpg" alt="" id="imgid_collection_setup"/></a>
 <a class="collection_user_p"><img src="../images/04_add-artworks-into-your-pool_07.jpg" alt="" id="imgid_collection_head"/></a> 
 </div>
-<div class="collection_user" >
-<img src="" id="imgid_collection_headPic"/>
+<div class="collection_user" id="imgid_collection_headPic">
+<!-- <img src="" id="imgid_collection_headPic"/> -->
 </div>
-<div class="collection_user_name" id="divid_collection_username">${member.firstname}&nbsp;${member.lastname}</div>
+<div class="collection_user_name" id="divid_collection_username"><%-- ${member.firstname}&nbsp;${member.lastname} --%></div>
 <!--特效开始-->
 <ul id="ul1">
 <li><a href="javascript:void(0)" onclick="collection_checkPoolAndCollection('pool')" id="sa"  class="spool">All Your Work</a></li>
@@ -438,14 +456,15 @@ function collection_checkPoolAndCollection(checked){
 </ul>
 </div>
 
+
 <div class="clear qa"></div>
-<div style="background:#e9e9e9;">
+<div class="collection_allyourwork">
 <div class="xf  dropzone" id="dis">
 <script>
 $(".dropzone").dropzone({
-        url: "http://"+window.location.host+"/TekumaUserServer/system/system_savePoolWorks.do",
+        url: "system/system_savePoolWorks.do",
         paramName:"upload",
-        params:{"pool.title":"Not editing"},
+        params:{"pool.title":""},
         acceptedFiles: "image/*",
         previewsContainer:"",
         dictInvalidFileType: "You can't upload the type file, the file type can only be image",
@@ -470,6 +489,7 @@ $(".dropzone").dropzone({
     		    $(".divclass_collection_cjn").mouseout(function(){
     		   	 	 $(this).css("left","210px");
     		    });
+    		    window.location.reload();
             });
             this.on("removedfile", function(file) {
             });
@@ -480,23 +500,26 @@ $(".dropzone").dropzone({
     			"<div class=\"zz1\"><div id=\"zq1\"><img class=\"imgclass_collection_works\""+
     			"src=\""+dataUrl+"\" id=\"img_"+timestamp+"\"/><div id=\"pool_m\" onclick=\"document.getElementById('img_"+timestamp+"').click();\"></div></div>"+
     			"<span id=\"span_"+timestamp+"\"><a href=\"javascript:void(0)\">"+
-    			"<progress id=\"collection_uploadwork_progress_"+timestamp+"\" max=\"100\" value=\"0\"><ie style=\"width:20%;\"></ie></progress><img src=\"../images/lajitong.png\" alt=\"\" id=\"ljt_"+timestamp+"\"/></a></span></div></div>";
+    			"<progress id=\"collection_uploadwork_progress_"+timestamp+"\" style=\"border-radius:5px;\" max=\"100\" value=\"0\"><ie style=\"width:20%;\"></ie></progress><img src=\"../images/lajitong.png\" alt=\"\" id=\"ljt_"+timestamp+"\"/></a></span></div></div>";
     			$("#pool_add").after(html);
             });
             this.on("addedfile", function (file) {  
             	
             }); 
             this.on("uploadprogress", function (q,w,e) {  
-                $("#collection_uploadwork_progress_"+collection_uploadWork_timestamp[0]).attr("value",w)
+            	$("#collection_uploadwork_progress_"+collection_uploadWork_timestamp[0]).width(w);
             });
             this.on("canceled",function(){
             	collection_uploadWork_timestamp.splice(0,1);
             });
             this.on("error", function(file) {
-                
             });
+            //用户有东西掉到DropZone
+            this.on("drop", function(file) {
+            	 //alert("啊哈");
+            	$(".collection_allyourwork").attr("class","collection_allyourwork_t");
+            }); 
         }
-    	
     }); 
 </script>
 
@@ -568,7 +591,7 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <div class="clear1" id="img_clear1" style="text-align: center;"></div>
 <!--小蝴蝶-->
 <div class="collection_contact">
-<span>contact us:<a href="javascript:void(0)">hello@tekuma.io</a></span>
+<span>contact us: <a href="javascript:void(0)">hello@tekuma.io</a></span>
 </div>
 <!--收藏夹修改-->
 <div class="bj2" id="divid_collection_bj1"></div>
@@ -586,13 +609,23 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <a href="javascript:void(0)" id="close1"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="creat_information_h1">Collection Description</h1>
 <input type="text" placeholder="Collectinon Title" id="inputid_collection_cname" class="collection_update_warning" value=" "/> 
-<input type="text" placeholder="Number of Prints" id="inputid_collection_cLimitNum" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="collection_update_warning" value=" "/>
+<!-- <input type="text" placeholder="Number of Prints" id="inputid_collection_cLimitNum" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="collection_update_warning" value=" "/> -->
 <%-- <select id="inputid_Upload_ptime">==Upload time==
 <option value="2015">2015</option>
 <option value="2014">2014</option>
 <option value="2013">2013</option>
 <option value="2012">2012</option>
 </select> --%>
+<!-- 标签四 -->
+<!--<select id="inputid_collection_colors" class="collection_update_warning">
+<option value="">Tags</option>
+<option value="red">red</option>
+<option value="yellow">yellow</option>
+<option value="blue">blue</option>
+<option value="green">green</option>
+<option value="other">other</option>
+</select>-->
+<input type="text" id="inputid_collection_tags">
 <select id="inputid_collection_categories" class="collection_update_warning">
 <option value="">All Media</option>
 <option value="Collage">Collage</option>
@@ -604,6 +637,7 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="Printmaking">Printmaking</option>
 <option value="Sculpture">Sculpture</option>
 <option value="Video">Video</option>
+<option value="other">other</option>
 </select>
 <!--标签2 -->
 <select id="inputid_collection_styles" class="collection_update_warning">
@@ -629,9 +663,10 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="Realism">Realism</option>
 <option value="Street Art">Street Art</option>
 <option value="Surrealism">Surrealism</option>
+<option value="other">other</option>
 </select>
 <!--标签3 -->
-<select id="inputid_collection_prices" class="collection_update_warning">
+<!--<select id="inputid_collection_prices" class="collection_update_warning">
 <option value="">All Subjects</option>
 <option value="Abstract">Abstract</option>
 <option value="Aerial">Aerial</option>
@@ -726,16 +761,10 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="Women">Women</option>
 <option value="World Culture">World Culture</option>
 <option value="Yacht">Yacht</option>
-</select>
-<!-- 标签四 -->
-<select id="inputid_collection_colors" class="collection_update_warning">
-<option value="">Tags</option>
-<option value="red">red</option>
-<option value="yellow">yellow</option>
-<option value="blue">blue</option>
-<option value="green">green</option>
-</select>
+<option value="other">other</option>
+</select>-->
 <textarea placeholder="Write a few words on the intent of your work and what inspire you." id="creat_collection_textarea" class="collection_update_Warning"></textarea>
+<a href="javascript:void(0)" id="acla_collection_select">Select</a>
 <a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
 </div>
 </div>
@@ -774,20 +803,21 @@ inputid_collection_pimg.onload = function() {
 <!-- 错误提示 -->
 <div class="errormsg"></div>
 <a href="javascript:void(0)" id="pool_close" onclick="collection_closeWorksBox()"><img src="../images/wire-framing_03.png" alt="" /></a>
-<h1 class="creat_information_h1">Pool Information</h1>
+<h1 class="creat_information_h1">Work Information</h1>
 <input type="text" placeholder="Pool Name" id="inputid_collection_pname" class="pool_add_warning" value=" "/>
-<input type="text" placeholder="label" id="inputid_collection_ptime"  class="pool_add_warning" value=" "/>
+<!-- <input type="text" placeholder="label" id="inputid_collection_ptime"  class="pool_add_warning" value=" "/> -->
 <select id="inputid_Upload_ptime"  class="pool_add_warning">==Create time==
 <option value="2015">2015</option>
 <option value="2014">2014</option>
 <option value="2013">2013</option>
 <option value="2012">2012</option>
+<option value="other">other</option>
 </select>
 <!-- 作品id -->
 <input type="text"  id="inputid_collection_worksid" style="display:none"/>	
 
 <textarea placeholder="Project Description(maximum 500 characters)" id="inputid_collection_pdesc"  class="pool_add_warning"></textarea>
-<a href="javascript:void(0)" id="collection_saveyourpool" onclick="collection_comitWorks()">Save Your Pool</a>
+<a href="javascript:void(0)" id="collection_saveyourpool" onclick="collection_comitWorks()">Save</a>
 <!-- 下载链接 -->
 <a id="cool_download">Download</a>
 </div>
@@ -830,13 +860,14 @@ inputid_collection_pimg.onload = function() {
 <a href="javascript:void(0)" id="collection2_close"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="collection2_h1">Collection Information</h1>
 <input type="text" placeholder="Pool Name" id="inputid_collectionpool_pname" class="pool_add_warning"/>
-<input type="text" placeholder="label" id="inputid_collectionpool_plabel" class="pool_add_warning"/>
+<!-- <input type="text" placeholder="label" id="inputid_collectionpool_plabel" class="pool_add_warning"/> -->
 <!-- <input type="text" placeholder="Create time" id="collectionpool_inputid_Upload_ptime" class="collection_add_warning"/> -->
 <select id="collectionpool_inputid_Upload_ptime"  class="collection_add_warning">==Create time==
 <option value="2015">2015</option>
 <option value="2014">2014</option>
 <option value="2013">2013</option>
 <option value="2012">2012</option>
+<option value="other">other</option>
 </select>
 <input type="text"  id="inputid_collection_worksidec" style="display: none;" value=""/>	
 <input type="text"  id="inputid_collection_coolid" style="display: none;" value=""/>	
@@ -849,10 +880,7 @@ inputid_collection_pimg.onload = function() {
 <a href="#" class="collection2_r" onclick="collectionright()"><img src="../images/jt2.png" alt=""/></a>
 </div>
 <!--collection的二次弹框结束 -->
-
-
 </div>
-
 <!-- 用户信息 -->
 <div id="index_user_m" onclick="box_hide_user()"></div>
 <div id="index_user" style="display:none">
@@ -861,14 +889,14 @@ inputid_collection_pimg.onload = function() {
 <div class="errormsg errormsg_user"></div>
 <a href="javascript:void(0)" id="index_user_close"><img src="../images/wire-framing_03.png" alt=""/></a>
 <h1 class="index_user_h1">Profile Information</h1>
-<input type="text" placeholder="First Name" id="index_user_First_Name" value="${member.firstname }" class="userinfo_form_warning"/>
-<input type="text" placeholder="last Name" id="index_user_last_Name" value="${member.lastname }" class="userinfo_form_warning"/>
+<input type="text" placeholder="First Name" id="index_user_First_Name" value="" class="userinfo_form_warning"/>
+<input type="text" placeholder="last Name" id="index_user_last_Name" value="" class="userinfo_form_warning"/>
 <div id="gender">
-<div class="male" onclick="user_selectGender(this,'1')"></div>
+<div class="male" id="male_div" onclick="user_selectGender(this,'1')"></div>
 <span id="male">male</span>
-<div class="female" onclick="user_selectGender(this,'3')"></div>
+<div class="female" id="female_div" onclick="user_selectGender(this,'2')"></div>
 <span id="female">female</span>
-<div class="custom" onclick="user_selectGender(this,'2')"></div>
+<div class="custom" id="custom_div" onclick="user_selectGender(this,'3')"></div>
 <span id="custom">custom</span>
 <div class="clear1"></div>
 </div>
@@ -878,8 +906,8 @@ inputid_collection_pimg.onload = function() {
 <input type="file" value="Change your picture" id="index_user_picchange" />
 <a href="#" id="index_user_picchange_none" onclick="index_user_picchange.click()">change your picture</a>
 <div class="clear1"></div>
-<input type="text" placeholder="Where are you now ?" id="index_user_Year_Location" value="${member.location }"/>
-<input type="text" placeholder="Storage address" id="index_user_Website" value="${member.website }"/>
+<input type="text" placeholder="Where are you live ?" id="index_user_Year_Location" value="${member.location }"/>
+<%-- <input type="text" placeholder="Storage address" id="index_user_Website" value="${member.website }"/> --%>
 <textarea placeholder="Work description" id="index_user_textarea" value="${member.bio }"></textarea>
 <a href="#" id="index_user_save" onclick="user_updateInfo()">Save</a>
 </div>
@@ -925,6 +953,8 @@ inputid_collection_pimg.onload = function() {
 
 <!-- 页码 -->
 <input style="display:none" value="1" id="inputid_collection_page"/>
+
+<div class="collection_tuozhuai" id="collection_tuozhuai_mengban"></div>
 
 </body>
 </html>

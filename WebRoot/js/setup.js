@@ -14,7 +14,7 @@ function set_updateUserPwd(){
 		public_err_prompt("Two times the password is not consistent",$("#index_setup_New_passeord2"));
 	}else{
 		$.ajax({
-			url:"http://"+window.location.host+"/TekumaUserServer/system/system_saveSetup.do",
+			url:"system/system_saveSetup.do",
 			data:{"oldpwd":login_pwd,"newpwd":login_newPwd},
 			type:"post",
 			success:function(data){

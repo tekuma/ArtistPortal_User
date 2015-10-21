@@ -78,7 +78,7 @@ function preview(img, selection) {
 			var hRate=imgHeight/300;
 			
 			$.ajax({
-				url:"http://"+window.location.host+"/TekumaUserServer/system/system_saveUserHead.do", //上传文件的服务端
+				url:"system/system_saveUserHead.do", //上传文件的服务端
 				data:{"imgW":Math.round(cut_width*wRate),"imgH":Math.round(cut_height*hRate),"imgX1":Math.round(cut_x*wRate),"imgY1":Math.round(cut_y*hRate),"imgUrl":$("#photo").attr("src")},
 				type:"post",
 				success:function(data){

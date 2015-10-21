@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>input information-2</title>
+<title>login</title>
 <script src="../js/jquery-1.11.2.min.js"></script>
 <script src="../js/html5.js"></script>
 
@@ -11,7 +11,7 @@
 
 
 <style type="">
-#errormsg{ position:fixed; top:50%; left:50%;width:200px; margin-left:-76px; margin-top:25px; font-size:12px; display:none;color:red}
+#errormsg{ position:absolute; top:50%; left:50%;width:200px; margin-left:-76px; margin-top:-75px; font-size:12px; display:none;color:red}
 </style>
 <script>
 /* //facebook Sdk 初始化
@@ -91,12 +91,10 @@ $(function(){
 	function login_loginCommit(){
 		var name=$("#inputid_login_name").val();
 		var password=$("#inputid_login_password").val();
-		alert(name);
-		alert(password);
 		if(name!=undefined&&name!=""){
 			if(password!=undefined&&password!=""){
 				$.ajax({
-					url:"http://"+window.location.host+"/TekumaUserServer/system/system_memberLogin.do",
+					url:"system/system_memberLogin.do",
 					data:{"member.loginname":name,"member.loginpwd":password},
 					type:"post",
 					success:function(isSuccess){
@@ -139,7 +137,7 @@ $(function(){
 			 case 13:
 				if(name!=undefined&&name!=""&&password!=undefined&&password!=""){
 					$.ajax({
-						url:"http://"+window.location.host+"/TekumaUserServer/system/system_memberLogin.do",
+						url:"system/system_memberLogin.do",
 						data:{"member.loginname":name,"member.loginpwd":password},
 						type:"post",
 						success:function(isSuccess){
@@ -185,7 +183,6 @@ $(function(){
 <script>
 $(function(){
 	$(".login2_input").fadeToggle(1000)
-		
 	})
 </script>
 </head>
@@ -193,7 +190,7 @@ $(function(){
 <input type="hidden" id="input_login_email" value="${email}" />
 <input type="hidden" id="input_login_password" value="${password}" />
 
-<div id="errormsg">您的信息输入错误，请重试!</div>
+
  
 <%--
 <a href="#" class="sign_in_header fr" onclick="login_faceBookLogin()">How it works?</a>
@@ -205,12 +202,14 @@ $(function(){
 <a href="#" class="sign_in_forget" onclick="window.location.href='system_goReset.do'">Forget Password</a>
 </div>
 <div class="clear"></div>
-<div class="sign_in_footer"><span class="fr">contact us:<a href="#">tekuma@mit.edu</a></span></div> --%>
+<div class="sign_in_footer"><span class="fr">contact us: <a href="#">hello@tekuma.io</a></span></div> --%>
 
 
 <div class="login2_container">
+
 <img id="login2_logo" src="../images/wire-framing_20.png" alt="" />
 <div class="login2_input">
+<div id="errormsg">您的信息输入错误，请重试!</div>
 <div class="clear"></div>
 <input type="text" placeholder="email" id="inputid_login_name" class="login2_email" onclick="loginwarning()" value="${name}"/>
 <input type="password" placeholder="password" class="login2_pwd" id="inputid_login_password" onclick="loginwarning()" onselectstart="return false" oncopy="return false;" oncut="return false;" value=""/>
@@ -223,7 +222,7 @@ $(function(){
 </div>
 <div class="login2_footer">
 <a href="#" class="login2_header fl" onclick="window.location.href='system/system_goCutAvatar.do'">How it works?</a>
-<span class="fr">contact us:<a href="#">tekuma@mit.edu</a></span>
+<span class="fr">contact us: <a href="#">hello@tekuma.io</a></span>
 </div>
 </div>
 

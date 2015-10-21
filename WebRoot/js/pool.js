@@ -12,7 +12,7 @@ function public_err_prompt(nr,obj){
 //加载收藏列表
 function collection_iniCollection(){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_ajaxInitCollections.do",
+		url:"system/system_ajaxInitCollections.do",
 		type:"post",
 		success:function(pools){
 			collection_pools=pools;//初始化作品集合全局变量
@@ -36,12 +36,12 @@ function collection_collectionIteration(pools){
 			}else if(pools[i].collectionid!=lastCollectionId){
 				index=1;
 				lastCollectionId=pools[i].collectionid;
-				html+="</ul><span>"+pools[i-1].collectiontitle+"<img src=\"../images/lajitong.png\"class='collection_del1 imgclass_collection_lajitong'><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delCollectionById("+pools[i-1].collectionid+")\">Delete</button></div><a href=\"javascript:void(0)\"><img onclick=\"collection_openUpdateCollection("+pools[i-1].collectionid+")\" src=\"../images/bi.png\"/></a></span></div></div>";
+				html+="</ul><span><em>"+pools[i-1].collectiontitle+"</em><img src=\"../images/lajitong.png\"class='collection_del1 imgclass_collection_lajitong'><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delCollectionById("+pools[i-1].collectionid+")\">Delete</button></div><a href=\"javascript:void(0)\"><img onclick=\"collection_openUpdateCollection("+pools[i-1].collectionid+")\" src=\"../images/bi.png\"/></a></span></div></div>";
 				html+="<div class=\"z1 fl\" id=\"ulid_collection_collectionid_"+pools[i].collectionid+"\"><div class=\"zz1\"><ul  class=\"zp\" onclick=\"collection_openCollectionScan("+pools[i].collectionid+")\">";
 				html+="<li ><a href=\"javascript:void(0)\" class=\"za1\"><img src='"+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"' class=\"imgclass_collection_works\"/></a></li>";
 			}
 			if(i==pools.length-1){
-				html+="</ul><span>"+pools[i].collectiontitle+"<img src=\"../images/lajitong.png\"  class='collection_del1 imgclass_collection_lajitong'><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delCollectionById("+pools[i].collectionid+")\">Delete</button></div><a href=\"javascript:void(0)\"><img onclick=\"collection_openUpdateCollection("+pools[i].collectionid+")\" src=\"../images/bi.png\"/></a></span></div></div>";
+				html+="</ul><span><em>"+pools[i].collectiontitle+"</em><img src=\"../images/lajitong.png\" class='collection_del1 imgclass_collection_lajitong'><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delCollectionById("+pools[i].collectionid+")\">Delete</button></div><a href=\"javascript:void(0)\"><img onclick=\"collection_openUpdateCollection("+pools[i].collectionid+")\" src=\"../images/bi.png\"/></a></span></div></div>";
 			}
 		}
 	}else{
@@ -60,7 +60,7 @@ function collection_collectionIteration(pools){
 //添加收藏/点击收藏夹
 function collection_openUpdateCollection(collectionId){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_findUpdateCollectionList.do",
+		url:"system/system_findUpdateCollectionList.do",
 		type:"post",
 		data:{"collectionid":collectionId},
 		success:function(pools){
@@ -73,9 +73,9 @@ function collection_openUpdateCollection(collectionId){
 			for(var i in pools){
 				if(poolIds.indexOf(pools[i].id)!=-1){
 					collection_poolArr.push(pools[i].id);//初始化选中收藏集合
-					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"on\" ></span></li>";
+					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=syq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"on\" onclick=\"ck('syq"+pools[i].id+"')\"></span></li>";
 				}else{
-					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\"></span></li>";
+					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=cyq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('cyq"+pools[i].id+"')\"></span></li>";
 				}
 			}
 			$("#ulid_collection_addcollection").html(html);
@@ -116,7 +116,7 @@ function collection_clearCollection(){
 function collection_openAddCollection(){
 	collection_curCollectionId="";//初始化被选中收藏夹ID/用于判断是save或update
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_findAddCollectionList.do",
+		url:"system/system_findAddCollectionList.do",
 		type:"post",
 		data:{"page":"0"},
 		success:function(pools){
@@ -126,7 +126,7 @@ function collection_openAddCollection(){
 			collection_poolArr=[];//初始化数组
 			html+="<li id=\"pool_add\" Style=\"width:137px;height:135px;font-size:.8em;box-shadow:none;border-radius:1px;margin-top:21px;\" onclick=\"coll_addPool()\"><input type=\"file\" id=\"cool_add_position\" name=\"upload\" accept=\"image/*\"/><img style='width:45px;height:45px;margin-top:20%;' src=\"../images/defr_06.jpg\" />Upload your work</li>";
 			for(var i in pools){
-				html+="<li><a href=\"javascript:void(0)\" onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" ></span></li>";
+				html+="<li><a href=\"javascript:void(0)\" onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=yq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('yq"+pools[i].id+"')\" ></span></li>";
 			}
 			$("#ulid_collection_addcollection").html(html);
 			collection_clearCollection()
@@ -134,6 +134,11 @@ function collection_openAddCollection(){
 	});
 }
 
+//点击小圆球选中
+function ck(id){
+	var djid="yq"+id;
+	$("#"+djid+" a").click();
+}
 
 //收藏夹//打开添加作品框
 function coll_addPool(){
@@ -189,20 +194,6 @@ function collection_addCollectionSubmit(){
 		public_err_prompt("Choose work",$(""));
 	}else if(collectionTitle==undefined||collectionTitle==""){
 		public_err_prompt("Title can not be empty",$("#inputid_collection_cname"));
-	}else if(collectionTitle.length>100){
-		public_err_prompt("Title Can't be better than 100 characters",$("#inputid_collection_cname"));
-	}else if(categories==undefined||categories==""){
-		public_err_prompt("Please choose categorie",$("#inputid_collection_categories"));
-	}else if(styles==undefined||styles==""){
-		public_err_prompt("Please choose style",$("#inputid_collection_styles"));
-	}else if(subject==undefined||subject==""){
-		public_err_prompt("Please choose subject",$("#inputid_collection_prices"));
-	}else if(color==undefined||color==""){
-		public_err_prompt("Please choose color",$("#inputid_collection_colors"));
-	}else if(cNum.length>32){
-		public_err_prompt("PrintQuantity Can't be better than 100 characters",$("#inputid_collection_cLimitNum"));
-	}else if(cDesc.length>128){
-		public_err_prompt("Description Can't be better than 128 characters",$("#creat_collection_textarea"));
 	}else{
 		for(var i in collection_poolArr){
 			poolsStr+=collection_poolArr[i]+",";
@@ -210,7 +201,7 @@ function collection_addCollectionSubmit(){
 		poolsStr=poolsStr.substring(0,poolsStr.length-1);
 		var isAdd=collection_curCollectionId==""?"yes":"no";//判断是否是添加/修改
 		$.ajax({
-			url:"http://"+window.location.host+"/TekumaUserServer/system/system_saveCollection.do",
+			url:"system/system_saveCollection.do",
 			type:"post",
 			data:{"isAdd":isAdd,"poolIds":poolsStr ,"collection.id":collection_curCollectionId,"collection.collectiontitle":collectionTitle,
 				"collection.printquantity":cNum,"collection.descriptionof":cDesc,
@@ -286,7 +277,7 @@ function pool_flip(type){
 	//alert(flipid);
 	//alert(type);
 	$.ajax({
-        url:"http://"+window.location.host+"/TekumaUserServer/system/system_poolflip.do", //上传文件的服务端
+        url:"system/system_poolflip.do", //上传文件的服务端
         data:{"flipid":flipid,"type":type},
         type:"post",
         success:function(pools){
@@ -361,11 +352,11 @@ function collection_comitWorks(){
 		public_err_prompt("Title can not be empty",$("#inputid_collection_pname"));
 	}else if(title.length>64){
 		public_err_prompt("Title Can't be better than 30 characters",$("#inputid_collection_pname"));
-	}else if(label==undefined||label==""){
+	}/*else if(label==undefined||label==""){
 		public_err_prompt("Please enter the work label",$("#inputid_collection_ptime"));
 	}else if(label.length>64){
 		public_err_prompt("Label Can't be better than 100 characters",$("#inputid_collection_ptime"));
-	}else if(date==undefined||date==""){
+	}*/else if(date==undefined||date==""){
 		public_err_prompt("Please choose the year of creation",$("#inputid_Upload_ptime"));
 	}else if(desc.length>128){
 		public_err_prompt("Description Can't be better than 100 characters",$("#inputid_collection_pdesc"));
@@ -384,7 +375,7 @@ function collection_comitWorks(){
 //修改作品
 function collection_updateWorksAjax(title,desc,id,label,date){
 	$.ajax({
-        url:"http://"+window.location.host+"/TekumaUserServer/system/system_savePoolWorks.do", //上传文件的服务端
+        url:"system/system_savePoolWorks.do", //上传文件的服务端
         data:{"pool.title":title,"pool.description":desc,"pool.id":id,"pool.entrylabel":label,"pool.createtime":date},
         type:"post",
         success:function(pool){
@@ -398,7 +389,7 @@ function collection_updateWorksAjax(title,desc,id,label,date){
 //添加作品 
 function collection_uploadWorksAjax(title,desc,label,date){
 	$.ajaxFileUpload({
-        url:"http://"+window.location.host+"/TekumaUserServer/system/system_savePoolWorks.do", //上传文件的服务端
+        url:"system/system_savePoolWorks.do", //上传文件的服务端
         data:{"pool.title":title,"pool.description":desc,
         	"pool.entrylabel":label,"pool.createtime":date},
         secureuri:false,  //是否启用安全提交
@@ -408,6 +399,7 @@ function collection_uploadWorksAjax(title,desc,label,date){
         success:function(pool){
         	collection_closeWorksBox();
         	collection_addPoolBeforUpload(pool);
+        	window.location.reload();
         },
         //提交失败处理函数
         error: function (html,status,e){
@@ -419,7 +411,7 @@ function collection_uploadWorksAjax(title,desc,label,date){
 //cool添加pool作品 
 function pollection_uploadWorksAjax(title,desc,label,date){
 	$.ajaxFileUpload({
-        url:"http://"+window.location.host+"/TekumaUserServer/system/system_savePoolWorks.do", //上传文件的服务端
+        url:"system/system_savePoolWorks.do", //上传文件的服务端
         data:{"pool.title":title,"pool.description":desc,
         	"pool.entrylabel":label,"pool.createtime":date},
         secureuri:false,  //是否启用安全提交
@@ -638,7 +630,7 @@ function collection_poolcomitWorks(){
 	var coolid=$("#input_collection2_l").val();
 	//alert(title+desc+label+date+id);
 	$.ajax({
-        url:"http://"+window.location.host+"/TekumaUserServer/system/system_savePoolWorks.do", 
+        url:"system/system_savePoolWorks.do", 
         data:{"pool.title":title,"pool.description":desc,"pool.id":id,"pool.entrylabel":label,"pool.createtime":date},
         type:"post",
         success:function(pool){        	
@@ -673,7 +665,7 @@ function collection_addPool(){
 //删除作品
 function collection_delPoolById(poolId){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_delPoolById.do", //上传文件的服务端
+		url:"system/system_delPoolById.do", //上传文件的服务端
         data:{"pool.id":poolId},
         type:"post",
         success:function(){
@@ -686,7 +678,7 @@ function collection_delPoolById(poolId){
 //删除收藏夹根据ID
 function collection_delCollectionById(collectionId){
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_delCollectionById.do", //上传文件的服务端
+		url:"system/system_delCollectionById.do", //上传文件的服务端
         data:{"collection.id":collectionId},
         type:"post",
         success:function(){

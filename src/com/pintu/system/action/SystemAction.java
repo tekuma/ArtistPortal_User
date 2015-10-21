@@ -97,9 +97,9 @@ public class SystemAction extends BaseAction {
 	private final static String LOCALFILEURL="d://project/TekumaUserServer_tup/";//服务器本地地址
 	private final static Integer YS_WIDTH=210;//压缩图片宽度
 	private final static Integer YS_HEIGHT=210;//压缩图片高度
-	private final static String YX_NAME="zhaoliangjava@126.com";//邮箱登陆名
-	private final static String YX_PWD="24384530363";//邮箱登陆密码
-	private final static String YX_SMTP="smtp.126.com";//邮箱smtp
+	private final static String YX_NAME="artist@tekuma.io";//邮箱登陆名
+	private final static String YX_PWD="Tekuma2015";//邮箱登陆密码
+	private final static String YX_SMTP="smtpout.secureserver.net";//邮箱smtp
 	/** 
      * 按照宽度还是高度进行压缩 
      * @param w int 最大宽度 
@@ -323,7 +323,11 @@ public class SystemAction extends BaseAction {
 				imgname=uploadFileName[i];
 			}
 			String name=imgname.substring(0,imgname.indexOf("."));
-			pool.setTitle(name);
+			if(pool.getTitle().length()>0){
+				pool.setTitle(pool.getTitle());
+			}else{
+				pool.setTitle(name);
+			}
 			this.systemService.getPublicJdbcDao().executeMYSQLDB("save","tk_pool_t", pool, "id");
 			try {
 				String filePath=LOCALFILEURL+member.getId()+"/"+pool.getId()+"."+imgSuffix;
@@ -473,7 +477,7 @@ public class SystemAction extends BaseAction {
                     b[i]+=256;  
                 }  
             }  
-            
+        
             //生成jpeg图片  
             imgFilePath = LOCALFILEURL+userId+"/head/"+userId+"."+imgSuffix;//新生成的图片  
             File file=new File(LOCALFILEURL+userId);
@@ -749,9 +753,9 @@ public class SystemAction extends BaseAction {
 	 */
 	public void getServerusertxlj(){
 		Member sessionMember=(Member)this.request.getSession().getAttribute("member");
-		String Sql="select avatarpath from tk_member_t where ID="+sessionMember.getId();
-		String txlj=this.systemService.getPublicJdbcDao().getTempStr(Sql, null);
-		this.strReturnJson(txlj);
+		String Sql="select * from tk_member_t where ID="+sessionMember.getId();
+		List<Member> members=this.systemService.getPublicJdbcDao().getList(Sql, Member.class);
+		this.listReturnJson(members);
 	}
 	
 	

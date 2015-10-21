@@ -13,10 +13,12 @@ input:focus{ outline:none}
 .abs{ position:absolute}
 .clear{ clear:both; overflow:hidden;}
 
+
+
 #login2_logo{display:block;width:181px; height:180px;margin:0 auto; margin-top:4%;margin-bottom:30px;}
 .login2_header{ margin-left:83px;}
 input{float:left;width:225px;height:27px;margin:0 auto;border-radius:5px;border:solid 1px #ccc;margin-bottom:15px;padding-left:8px;}
-.login2_input{width:235px;height:300px;margin:0 auto;display:none;}
+.login2_input{width:235px;height:300px;margin:0 auto;display:none;position:relative;}
 .login2_login{display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;margin-top:15px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
 .login2_login:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
 .login2_login2{cursor:pointer;display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}

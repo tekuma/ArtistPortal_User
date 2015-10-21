@@ -29,5 +29,5 @@ input:focus{ outline:none}
 .input_information-2_get{ width:89px; background:none; font-family:Arial; font-size:16px; border:#000 solid 1px; color:#000000;cursor:pointer;}
 .alert_pwd2{ padding-right:20px; color:#FF0004; margin-bottom:8px;display:none;font-size:12px;}
 .alert_pwd1{ padding-right:20px; color:#FF0004; margin-bottom:8px;display:none;font-size:12px;}
-.alert_pwd3{ padding-right:20px; color:#FF0004; margin-bottom:8px;font-size:12px;display:none;}
+.alert_pwd3{ padding-right:20px; color:#FF0004; margin-bottom:8px;display:none;font-size:12px;}
 .tishikuang{ position:fixed; top:0;left:36.5%; font-size:16px; margin-top:10px;}

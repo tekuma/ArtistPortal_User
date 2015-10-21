@@ -28,7 +28,7 @@
 			return false;
 		}else{
 			$.ajax({
-				url:"http://"+window.location.host+"/TekumaUserServer/system/system_registCode.do",
+				url:"system/system_registCode.do",
 				type:"post",
 				data:{"singupInvitationcode":singupInvitationcode},
 				success:function(codedate){
@@ -61,7 +61,7 @@
 		}
 		//用户注册
 		$.ajax({
-			url:"http://"+window.location.host+"/TekumaUserServer/system/system_saveMemberInfo.do",
+			url:"system/system_saveMemberInfo.do",
 			type:"post",
 			data:{"member.loginname":signupemail,"member.loginpwd":singupcomfirmpwd,"member.lastname":singuplastname,
 					"member.firstname":singupfirstname},
@@ -114,7 +114,7 @@ $(function(){
 </div>
 <div class="signup2_footer">
 <a href="#" class="signup2_header fl" onclick="window.location.href='system/system_goCutAvatar.do'">How it works?</a>
-<span class="fr">contact us:<a href="#">hello@tekuma.io</a></span>
+<span class="fr">contact us: <a href="#">hello@tekuma.io</a></span>
 </div>
 </div>
 </body>
