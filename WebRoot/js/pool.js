@@ -5,7 +5,7 @@ var collection_checkPool_checkCollection="pool";
 var fileServerUrl="";
 
 function public_err_prompt(nr,obj){
-	obj.css("border","solid 1px rgb(242, 76, 76)");
+	//obj.css("border","solid 1px rgb(242, 76, 76)");
 	$(".errormsg").html(nr).fadeIn(300).fadeOut(3000);
 }
 
@@ -73,9 +73,9 @@ function collection_openUpdateCollection(collectionId){
 			for(var i in pools){
 				if(poolIds.indexOf(pools[i].id)!=-1){
 					collection_poolArr.push(pools[i].id);//初始化选中收藏集合
-					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=syq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"on\" onclick=\"ck('syq"+pools[i].id+"')\"></span></li>";
+					html+="<li id=\""+pools[i].id+"\"><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" ><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"on\" onclick=\"ck('"+pools[i].id+"')\"></span></li>";
 				}else{
-					html+="<li><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=cyq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('cyq"+pools[i].id+"')\"></span></li>";
+					html+="<li id=\""+pools[i].id+"\"><a href=\"javascript:void(0)\"  onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" ><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('"+pools[i].id+"')\"></span></li>";
 				}
 			}
 			$("#ulid_collection_addcollection").html(html);
@@ -126,7 +126,7 @@ function collection_openAddCollection(){
 			collection_poolArr=[];//初始化数组
 			html+="<li id=\"pool_add\" Style=\"width:137px;height:135px;font-size:.8em;box-shadow:none;border-radius:1px;margin-top:21px;\" onclick=\"coll_addPool()\"><input type=\"file\" id=\"cool_add_position\" name=\"upload\" accept=\"image/*\"/><img style='width:45px;height:45px;margin-top:20%;' src=\"../images/defr_06.jpg\" />Upload your work</li>";
 			for(var i in pools){
-				html+="<li><a href=\"javascript:void(0)\" onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" id=yq"+pools[i].id+"><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('yq"+pools[i].id+"')\" ></span></li>";
+				html+="<li id=\""+pools[i].id+"\"><a href=\"javascript:void(0)\" onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" ><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('"+pools[i].id+"')\" ></span></li>";
 			}
 			$("#ulid_collection_addcollection").html(html);
 			collection_clearCollection()
@@ -136,8 +136,7 @@ function collection_openAddCollection(){
 
 //点击小圆球选中
 function ck(id){
-	var djid="yq"+id;
-	$("#"+djid+" a").click();
+	$("#"+id+" a").click();
 }
 
 //收藏夹//打开添加作品框

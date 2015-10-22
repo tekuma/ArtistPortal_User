@@ -64,4 +64,8 @@
     <error-code>404</error-code>
     <location>/index.jsp</location>
   </error-page>
+  <mime-mapping>
+  <extension>ico</extension>
+  <mime-type>image/x-icon</mime-type>
+</mime-mapping>
 </web-app>

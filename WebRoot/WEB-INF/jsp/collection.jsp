@@ -63,7 +63,6 @@ $(function(){
 		}
 	 }); 
 	
-	
 	$("#nine_picture_close").click(function(){
 		  $("#nine_picture_t_window_zuopin").fadeOut(300);
 		  $("#nine_picture_t_bj_zuopin").fadeOut(300)
@@ -165,6 +164,31 @@ $(function(){
         } 
         
         
+        //获取页面所有input并添加样式
+        $("input").each(function(){
+            //var value = $(this).val(); 
+            //失去焦点
+            $(this).blur(function(event) {
+            	$(this).css("border-color","#e9e9e9");
+ 			});
+            //得到焦点
+            $(this).click(function(event) {
+            	$(this).css("border-color","#ec008b");
+ 			});
+        });
+      //获取页面所有textarea并添加样式
+        $("textarea").each(function(){
+            //var value = $(this).val(); 
+            //失去焦点
+            $(this).blur(function(event) {
+            	$(this).css("border-color","#e9e9e9");
+ 			});
+            //得到焦点
+            $(this).click(function(event) {
+            	$(this).css("border-color","#ec008b");
+ 			});
+        });
+        
 });
 
 //下拉到底部加载更多
@@ -203,11 +227,11 @@ function poolajimg(){
 function collection_initUserHeadPic(headUrl){
 	if(headUrl.indexOf("head") > 0){
 		//$("#imgid_collection_headPic").attr("background-image",headUrl);
-		$("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"') center center no-repeat;background-size: 100% 100%;"); 
+		$("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"') center center no-repeat;"); 
 		$("#imgid_user_pic").attr("src",headUrl);
 	}else{
-		/* $("#imgid_collection_headPic").attr("src","../images/Default Avatar.jpg");
-		$("#imgid_user_pic").attr("src","../images/Default Avatar.jpg"); */
+		$("#imgid_collection_headPic").attr("style","background:url('../images/profile-icon.png') center center no-repeat;background-size:100% 100%;"); 
+		$("#imgid_user_pic").attr("src","../images/profile-icon.png");
 	}
 }
 
@@ -516,13 +540,13 @@ $(".dropzone").dropzone({
             });
             //用户有东西掉到DropZone
             this.on("drop", function(file) {
-            	 //alert("啊哈");
-            	$(".collection_allyourwork").attr("class","collection_allyourwork_t");
+            	$("#collection_tuozhuai_mengban").show();
+            	$("#collection_tuozhuai_mengban").delay(300).hide(0);
             }); 
+    
         }
     }); 
 </script>
-
 <!--初始化界面开始-->
 <div class="k" id="divid_collection_k" >
 <!--放置添加按钮处-->
@@ -608,7 +632,7 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <div class="errormsg"></div>
 <a href="javascript:void(0)" id="close1"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="creat_information_h1">Collection Description</h1>
-<input type="text" placeholder="Collectinon Title" id="inputid_collection_cname" class="collection_update_warning" value=" "/> 
+<input type="text" placeholder="Collection Title" id="inputid_collection_cname" class="collection_update_warning" value=" "/> 
 <!-- <input type="text" placeholder="Number of Prints" id="inputid_collection_cLimitNum" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="collection_update_warning" value=" "/> -->
 <%-- <select id="inputid_Upload_ptime">==Upload time==
 <option value="2015">2015</option>
@@ -764,7 +788,7 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="other">other</option>
 </select>-->
 <textarea placeholder="Write a few words on the intent of your work and what inspire you." id="creat_collection_textarea" class="collection_update_Warning"></textarea>
-<a href="javascript:void(0)" id="acla_collection_select">Select</a>
+<a href="javascript:void(0)" id="acla_collection_back">Back</a>
 <a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
 </div>
 </div>
@@ -835,9 +859,52 @@ inputid_collection_pimg.onload = function() {
 <div class="nine_picture_right_box fr">
 <a href="javascript:void(0)" id="nine_picture_close"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="nine_picture_h1">Collection Information</h1>
-<input type="text" placeholder="Work title" id="nine_picture_Work_title" readOnly="true"/>
-<input type="text" placeholder="Year of creation" id="nine_picture_Year_of_creation" readOnly="true"/>
-<textarea placeholder="Work description" id="nine_picture_textarea" readOnly="true"></textarea>
+<input type="text" placeholder="Work title" id="nine_picture_Work_title">
+<!-- <input type="text" placeholder="Year of creation" id="nine_picture_Year_of_creation" readOnly="true"/> -->
+<input type="text" id="inputid_collection_tags">
+<select id="inputid_collection_categories" class="collection_update_warning">
+<option value="">All Media</option>
+<option value="Collage">Collage</option>
+<option value="Drawing">Drawing</option>
+<option value="Installation">Installation</option>
+<option value="New Media">New Media</option>
+<option value="Painting">Painting</option>
+<option value="Photography">Photography</option>
+<option value="Printmaking">Printmaking</option>
+<option value="Sculpture">Sculpture</option>
+<option value="Video">Video</option>
+<option value="other">other</option>
+</select>
+<!--标签2 -->
+<select id="inputid_collection_styles" class="collection_update_warning">
+<option value="">All Styles</option>
+<option value="Abstract">Abstract</option>
+<option value="Abstract Expressionism">Abstract Expressionism</option>
+<option value="Art Deco">Art Deco</option>
+<option value="Conceptual">Conceptual</option>
+<option value="Cubism">Cubism</option>
+<option value="Dada">Dada</option>
+<option value="Documentary">Documentary</option>
+<option value="Expressionism">Expressionism</option>
+<option value="Figurative">Figurative</option>
+<option value="Fine Art">Fine Art</option>
+<option value="Folk">Folk</option>
+<option value="Illustration">Illustration</option>
+<option value="Impressionism">Impressionism</option>
+<option value="Minimalism">Minimalism</option>
+<option value="Modern">Modern</option>
+<option value="Photorealism">Photorealism</option>
+<option value="Pop Art">Pop Art</option>
+<option value="Portraiture">Portraiture</option>
+<option value="Realism">Realism</option>
+<option value="Street Art">Street Art</option>
+<option value="Surrealism">Surrealism</option>
+<option value="other">other</option>
+</select>
+
+<textarea placeholder="Work description" id="nine_picture_textarea"></textarea>
+<a href="javascript:void(0)" id="acla_collection_select">Select</a>
+<a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
 <!-- <a href="javascript:void(0)">Save Your nine_picture</a> -->
 </div>
 
@@ -954,7 +1021,7 @@ inputid_collection_pimg.onload = function() {
 <!-- 页码 -->
 <input style="display:none" value="1" id="inputid_collection_page"/>
 
-<div class="collection_tuozhuai" id="collection_tuozhuai_mengban"></div>
+<div class="collection_tuozhuai" id="collection_tuozhuai_mengban">Drop files to upload</div>
 
 </body>
 </html>

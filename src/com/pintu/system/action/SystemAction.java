@@ -666,7 +666,7 @@ public class SystemAction extends BaseAction {
                     transport.connect(YX_SMTP, userName, password); 
                     transport.sendMessage(msg,msg.getAllRecipients()); 
                     transport.close(); 
-                    Transport.send(msg);  
+                    //Transport.send(msg);  
                 } catch(MessagingException e){  
                     e.printStackTrace();  
                 }  

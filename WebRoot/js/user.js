@@ -14,9 +14,9 @@ function user_updateInfo(){
 		public_err_prompt("Last name Can't be better than 64 characters",$("#index_user_last_Name"));
 	}else if(location.length>50){
 		public_err_prompt("Location Can't be better than 50 characters",$("#index_user_Year_Location"));
-	}else if(website.length>100){
+	}/*else if(website.length>100){
 		public_err_prompt("Website Can't be better than 100 characters",$("#index_user_Website"));
-	}else if(bio.length>100){
+	}*/else if(bio.length>100){
 		public_err_prompt("Bio Can't be better than 100 characters",$("#index_user_textarea"));
 	}else{
 		$.ajax({

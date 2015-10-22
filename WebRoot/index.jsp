@@ -7,6 +7,10 @@
 <link href="css/login.css" rel="stylesheet" type="text/css"/>
 <script src="js/jquery-1.11.2.min.js"></script>
 
+<link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+<link rel="bookmark" href="../images/favicon.ico" type="image/x-icon" />
+
 <style>
 #error{position:absolute;top:50%; left:50%; margin-left:-100px;}
 #errormsg{font-size:12px; display:none;color:red}
