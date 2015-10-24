@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>passwd</title>
-
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
 <script src="../js/jquery-1.11.2.min.js"></script>
 <link href="../css/pwreset.css" rel="stylesheet" type="text/css"/>
 

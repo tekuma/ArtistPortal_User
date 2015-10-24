@@ -18,7 +18,7 @@ input:focus{outline:none}
 
 #container{
 	width:100%;
-	padding-top:10px;
+	padding-top:20px;
 	background:#fff;
 	box-shadow:#cccccc 0px 1px 3px 1px;
 	}
@@ -452,7 +452,7 @@ input:focus{outline:none}
 	
 .zz1 em{
 	float:left;
-	width:100px;
+	width:98px;
 	height:34px;
 	overflow:hidden;
 	font-style:normal;
@@ -1066,13 +1066,15 @@ input:focus{outline:none}
 	}
 	
 .creat_information_ul{
+	height: 520px;
+	width:657px;
 	margin:0;
 	margin-left:20px;
 	margin-top:10px; 
 	display:block;
 	overflow:auto; 
 	overflow-x:hidden;
-	height: 520px;
+	
 	}
 	
 #pool_add_position{
@@ -1269,7 +1271,7 @@ progress::-webkit-progress-value{
 	font-weight:normal; 
 	text-align:center; 
 	font-size:16px; 
-	margin-bottom:25px; 
+	margin-bottom:8px; 
 	margin-top:50px; 
 	color:#000000;
 	}
@@ -1277,7 +1279,7 @@ progress::-webkit-progress-value{
 	
 #nine_picture_textarea{ 
 	display:block;
-	height:232px; 
+	height:211px; 
 	width:258px; 
 	border-radius:5px; 
 	margin:0 auto; 
@@ -1339,24 +1341,24 @@ progress::-webkit-progress-value{
 	margin:0;
 	padding:0;
 	display:block;
-	width:658px; 
+	width:659px; 
 	height:530px; 
-	padding-left:13px; 
-	margin-top:6px;
+	padding-left:15px; 
+	margin-top:18px;
 	}
 	
 	
 .nine_picture_ul3 li a{ 
 	float:left; 
-	width:159px; 
-	height:170px; 
+	width:160px; 
+	height:160px; 
 	margin-top:5px; 
 	margin-right:5px;
 	}
 	
 .nine_picture_ul3 li a img{ 
-	width:149px; 
-	height:159px;
+	width:155px; 
+	height:155px;
 	}
 	
 .nine_picture_add_none{ 
@@ -1387,9 +1389,9 @@ progress::-webkit-progress-value{
 .nine_picture_ul3 li{ 
 	float:left;
 	position:relative; 
-	width:159px; 
-	height:170px; 
-	margin:5px 5px 0 0;
+	width:160px; 
+	height:160px; 
+	margin:4px 4px 0 0;
 	}
 	
 .nine_picture_ul3 li span{ 
@@ -1658,13 +1660,13 @@ progress::-webkit-progress-value{
 	border-radius:50%; 
 	margin-left:48px; 
 	margin-bottom:13px;
-	overflow:hidden;
 	}
 	
 #imgid_user_pic{ 
-	width:100%;
-	height:100%;
+	width:100%; 
+	height:100%; 
 	border-radius:50%;
+	
 	}
 	
 #index_user_change{ 
@@ -2506,7 +2508,7 @@ margin-bottom:10px;
 
 .collection_tuozhuai{ position:fixed;width:100%;height:100%;background:#e9e9e9;opacity:.55;left:0;top:0;display:none;}
 .collection_allyourwork{border:#e9e9e9 solid 1px;background:#e9e9e9;}
-.collection_allyourwork_t{border: 1px dashed #e9e9e9s;background:#fed966;}
+.collection_allyourwork_t{border: 1px dashed #000;background:#fed966;}
 
 
 
@@ -2561,6 +2563,71 @@ margin-bottom:10px;
 	text-align:center;
 	font-weight:bold;
 	padding-top:24%;
-	display: none;
+	display:none;
 	}
+#collection_divid_px{
+	background-color: #e9e9e9;
+}
+
+/* 关键词 */
+
+
+#input_tagg_idnumber{
+	
+	color: #ec008b;
+	width:20px;
+	height:20px;
+    overflow: hidden;
+    float:left;
+	}
+
+#wer{
+	float:left;
+	width:53%;
+	border:none;
+	box-shadow:none;
+	margin:0;
+	padding:0;
+	text-align:center;
+	line-height:20px;
+	}
+
+#inputid_collection_tags{
+	display:block;
+    width:274px;
+    margin:0 auto; 
+    border:solid 1px #ccc; 
+	margin-bottom:10px;
+	border-radius:4px;
+	padding-bottom:2px;
+    padding-top:5px;
+    clear:both;
+	overflow:hidden;
+    
+}
+
+
+#inputid_collection_tags b{ 
+	float:right; 
+	width:16px; 
+	height:16px;  
+	margin-top:2px;
+	line-height: 16px;
+    text-align: center;
+    color:#8f8c8c;
+    font-size:17px;
+    cursor: pointer;
+	}
+	
+	
+.inputid_collection_tags{ 
+float:left; 
+border:solid #d7d7d7 1px;  
+background:#f4f4f4;
+border-radius:4px;
+margin-left:2px;
+margin-right:2px;
+margin-bottom:3px;
+}
+
 

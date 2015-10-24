@@ -4,6 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
 <script src="../js/jquery-1.11.2.min.js"></script>
 <link href="../css/signup2.css" rel="stylesheet" type="text/css"/>
 

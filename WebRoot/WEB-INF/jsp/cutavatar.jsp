@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>input information</title>
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
 <script src="../js/jquery-1.8.3.min.js"></script>
 <script src="../js/html5.js"></script>
 <!--裁剪框-->

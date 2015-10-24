@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>input information-2</title>
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
 <script src="../js/jquery-1.11.2.min.js" type="text/javascript"></script>
 <script src="../js/html5.js" type="text/javascript"></script>
 <link href="../css/input information-2.css" rel="stylesheet" type="text/css"/>

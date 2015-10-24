@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>your collection</title>
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
 <link href="../css/collection.css" rel="stylesheet" type="text/css"/>
 <script src="../js/jquery-1.11.2.min.js"></script>
 <script src="../js/html5.js"></script>
@@ -30,6 +31,7 @@
 </style>
 <script>
 var collection_uploadWork_timestamp=[];//上传作品时的时间戳集合
+var collection_input_coollable=[];//收藏夹标签的集合
 $(function(){
 	$.ajax({
 		url:"system/system_getServerFileUrl.do",
@@ -62,7 +64,7 @@ $(function(){
 			});
 		}
 	 }); 
-	
+
 	$("#nine_picture_close").click(function(){
 		  $("#nine_picture_t_window_zuopin").fadeOut(300);
 		  $("#nine_picture_t_bj_zuopin").fadeOut(300)
@@ -73,10 +75,10 @@ $(function(){
 		  $("#divid_collection_window1").fadeOut(300);
 	});
 	
-	$("#ul1 a").click(function(){
+	 /* $("#ul1 a").click(function(){
 		var i=$(this).index("#ul1 a");
 		$(".xf:eq("+i+")").fadeIn().siblings().hide();
-	});
+	});  */
 	
 	
 	collection_iniCollection();//加载收藏夹
@@ -311,6 +313,8 @@ function collection_checkPoolAndCollection(checked){
 		$("#sb").attr("class","scool");
 		$("#spool").attr("class","spool2");
 		$("#scool").attr("class","scool2");
+		$("#dis").fadeIn(300);
+		$("#sp").fadeOut(300);
 	}
 	if(checked=="collection" && classnamesb=="scool"){
 		$("#sa").attr('class','');
@@ -319,6 +323,8 @@ function collection_checkPoolAndCollection(checked){
 		$("#sb").attr("class","spool");
 		$("#spool").attr("class","scool2");
 		$("#scool").attr("class","spool2");
+		$("#sp").fadeIn(300);
+		$("#dis").fadeOut(300);
 	}
 	collection_checkPool_checkCollection=checked;
 }
@@ -442,6 +448,39 @@ function collection_checkPoolAndCollection(checked){
 	window.onresize=adaptivepoll;
  
 
+	//添加关键词标签	
+	function collection_spaceclick(){
+		var collid=$("#collection_inputid_collevtionid").val();
+		$("#wer").keypress(function (event) {
+		       if (event.keyCode == 0 || event.keyCode == 32){
+		    	   var lableval=$("#wer").val();
+		    	   if($("#inputid_collection_tag"+n).length>0){
+		  			 	alert("Unknown error");
+			  		}else{
+			  			if(n<6){		
+			  				//清除空格
+			  				/* var s = "asd ddd bbb sss";
+			  				var reg = //s/g;
+			  				var ss = s.replace(reg, ""); */
+			  				lableval=lableval.substr(0, 5);
+			  				if(lableval!=undefined && lableval!="" && !/\s/.test(lableval)){
+				  				//页面添加标签效果
+					  			$("#inputid_collection_tags_con").append("<div class=\"inputid_collection_tags\" id=\"inputid_collection_taglable"+n+"\">"+lableval+"<b onclick=\"collection_modifytags('inputid_collection_taglable"+n+"')\">x</b></div>");	
+					  			$("#input_tagg_idnumber").html(5-n);
+					  			n+=1;
+					  			$("#wer").val("");
+				  				collection_input_coollable.push(lableval);
+					  			//alert(collection_input_coollable);
+			  				}
+			  			}else{
+			  				alert("Tags can only enter Five.");
+			  			}
+			  		}
+		       }
+		});
+	}
+	
+	
 </script>
 
 </head>
@@ -462,7 +501,7 @@ function collection_checkPoolAndCollection(checked){
 	</div>
 
 
-<div id="test">
+<div id="test" class="dropzone">
 <div class="collection_header">
 <a href="http://tekuma.io/" class="collection_logo_c"><img id="collection_logo"  src="../images/jgugj_03.jpg" alt="" /></a> 
 <a class="collection_startup"><img src="../images/04_add-artworks-into-your-pool_05.jpg" alt="" id="imgid_collection_setup"/></a>
@@ -480,10 +519,76 @@ function collection_checkPoolAndCollection(checked){
 </ul>
 </div>
 
-
+<div id="collection_divid_px">
 <div class="clear qa"></div>
 <div class="collection_allyourwork">
+
+<!-- 拖拽上传降落区 -->
 <div class="xf  dropzone" id="dis">
+
+<!--初始化界面开始-->
+<div class="k" id="divid_collection_k" >
+<!--放置添加按钮处-->
+<div id="pool_add"  onclick="collection_addPool()"><input type="file" id="pool_add_position" name="upload" accept="image/*"/><img src="../images/defr_06.jpg"/>Upload Your Work</div>
+<!--放置添加按钮处-->
+<s:iterator id="works" value="pools" status="colla">
+<div class="z1 fl" id="divid_collection_pool_<s:property value="#works.id"/>" >
+<div class="zz1">
+<div id="zq1">
+<%-- <s:property value="#colla.index+1"/> --%>
+<img class="imgclass_collection_works" id="poolimg_${works.id}"
+src="<s:property value="#works.thumbnailurl"/>"/>
+<div id="pool_m" onclick="collection_checkworks('<s:property value="#works.id"/>','<s:property value="#works.thumbnailurlac"/>','<s:property value="#works.title"/>','<s:property value="#works.entrylabel"/>','<s:property value="#works.description"/>','<s:property value="#works.storeaddress"/>')"></div>
+<!-- 图片未加载出来的等待 -->
+<div class="loader-inner line-spin-fade-loader" id="pool_load_${works.id}">
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+	<div style="background:#e9e9e9;"></div>
+</div>          
+<script type="text/javascript">
+//图片加载出来关闭滚动图
+poolimg_${works.id}.onload = function() {
+	document.getElementById("pool_load_"+${works.id}).style.display="none";
+}
+setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.display="none";},2000);
+</script>                                                                 
+</div>
+<span id="idspan_collection_poolTitle_<s:property value="#works.id" />" class="coll_span_title"><s:property value="#works.title" /></span>
+<span id="idspan_collection_poolTitl_<s:property value="#works.id"/>">
+<a href="javascript:void(0)">
+<!-- 删除特效 -->
+<img src="../images/lajitong.png" class="imgclass_collection_lajitong"/>
+<div class="divclass_collection_cjn">
+    <button class="buttonclass_collection_delButton" onclick="collection_delPoolById(<s:property value="#works.id"/>)">Delete</button>
+</div>
+</a>
+<!-- 删除特效 -->
+<a href="javascript:void(0)"></a>
+</span>
+</div>
+</div>
+</s:iterator>
+<!--下拉加载图片处-->
+<div id="add_photo"/></div>
+<!--放置添加按钮处-->
+</div>
+</div>
+<!-- 上传时显示蒙版 -->
+<div class="collection_tuozhuai dropzone" id="collection_tuozhuai_mengban">Drop files to upload</div>
+</div>
+<!-- 收藏夹 -->
+<div id="sp" class="xf">
+<div class="content1" id="divid_collection_items">
+</div>
+<div class="clear1"></div>
+</div>
+
+<!-- 拖拽上传图片js操作 -->
 <script>
 $(".dropzone").dropzone({
         url: "system/system_savePoolWorks.do",
@@ -539,73 +644,34 @@ $(".dropzone").dropzone({
             this.on("error", function(file) {
             });
             //用户有东西掉到DropZone
-            this.on("drop", function(file) {
+            /* this.on("drop", function(file) {
             	$("#collection_tuozhuai_mengban").show();
             	$("#collection_tuozhuai_mengban").delay(300).hide(0);
-            }); 
-    
+            });  */
+            
+            //文件拖动到降落区
+            this.on("dragover", function(file) {
+            /* 	$("#collection_tuozhuai_mengban").show(function(){
+            		$("body").mouseout(function(){
+            			$("#collection_tuozhuai_mengban").hide();
+            		});
+            	}); */
+            	$("#collection_tuozhuai_mengban").show();
+            	$("body").mouseover(function(){
+        			$("#collection_tuozhuai_mengban").hide();
+        		});
+            });            
+            
+          	//文件从降落区脱离
+           /* 	this.on("dragleave", function(file) {
+            	$("collection_tuozhuai_mengban").mouseout(function(){
+        			$("#collection_tuozhuai_mengban").hide();
+        		});
+            });   */
+            
         }
     }); 
 </script>
-<!--初始化界面开始-->
-<div class="k" id="divid_collection_k" >
-<!--放置添加按钮处-->
-<div id="pool_add"  onclick="collection_addPool()"><input type="file" id="pool_add_position" name="upload" accept="image/*"/><img src="../images/defr_06.jpg"/>Upload Your Work</div>
-<!--放置添加按钮处-->
-<s:iterator id="works" value="pools" status="colla">
-<div class="z1 fl" id="divid_collection_pool_<s:property value="#works.id"/>" >
-<div class="zz1">
-<div id="zq1">
-<%-- <s:property value="#colla.index+1"/> --%>
-<img class="imgclass_collection_works" id="poolimg_${works.id}"
-src="<s:property value="#works.thumbnailurl"/>"/>
-<div id="pool_m" onclick="collection_checkworks('<s:property value="#works.id"/>','<s:property value="#works.thumbnailurlac"/>','<s:property value="#works.title"/>','<s:property value="#works.entrylabel"/>','<s:property value="#works.description"/>','<s:property value="#works.storeaddress"/>')"></div>
-<!-- 图片未加载出来的等待 -->
-<div class="loader-inner line-spin-fade-loader" id="pool_load_${works.id}">
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-	<div style="background:#e9e9e9;"></div>
-</div>          
-<script type="text/javascript">
-//图片加载出来关闭滚动图
-poolimg_${works.id}.onload = function() {
-	document.getElementById("pool_load_"+${works.id}).style.display="none";
-}
-setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.display="none";},2000);
-</script>                                                                 
-</div>
-<span id="idspan_collection_poolTitle_<s:property value="#works.id" />" class="coll_span_title"><s:property value="#works.title" /></span>
-<span id="idspan_collection_poolTitl_<s:property value="#works.id"/>">
-<a href="javascript:void(0)">
-<!-- 删除特效 -->
-<img src="../images/lajitong.png" class="imgclass_collection_lajitong"/>
-<div class="divclass_collection_cjn">
-    <button class="buttonclass_collection_delButton" onclick="collection_delPoolById(<s:property value="#works.id"/>)">Delete</button>
-</div>
-</a>
-<!-- 删除特效 -->
-<a href="javascript:void(0)"></a>
-</span>
-</div>
-</div>
-</s:iterator>
-<!--下拉加载图片处-->
-<div id="add_photo"/></div>
-<!--放置添加按钮处-->
-</div>
-</div>
-<!-- 收藏夹 -->
-<div id="sp" class="xf">
-<div class="content1" id="divid_collection_items">
-		
-</div>
-<div class="clear1"></div>
-</div>
 
 </div>
 <!--特效结束-->
@@ -649,8 +715,8 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="green">green</option>
 <option value="other">other</option>
 </select>-->
-<input type="text" id="inputid_collection_tags">
-<select id="inputid_collection_categories" class="collection_update_warning">
+<input type="text" id="inputid_collection_tagszxc">
+<select id="inputid_collection_categoriesfq" class="collection_update_warning">
 <option value="">All Media</option>
 <option value="Collage">Collage</option>
 <option value="Drawing">Drawing</option>
@@ -664,7 +730,7 @@ setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.di
 <option value="other">other</option>
 </select>
 <!--标签2 -->
-<select id="inputid_collection_styles" class="collection_update_warning">
+<select id="inputid_collection_stylesfq" class="collection_update_warning">
 <option value="">All Styles</option>
 <option value="Abstract">Abstract</option>
 <option value="Abstract Expressionism">Abstract Expressionism</option>
@@ -853,15 +919,24 @@ inputid_collection_pimg.onload = function() {
 <div id="nine_picture_t_bj_zuopin" onclick="zuopin_hide()"></div>
 <div id="nine_picture_t_window_zuopin">
 <div class="nine_picture_left_box fl">
-<ul class="nine_picture_ul3" id="ulid_collection_cScanBox">
+<ul class=" " id="ulid_collection_cScanBox">
 </ul>
 </div>
+
+<input type="text" placeholder="隐藏标签" id="input_hidden_tags"/>
+
 <div class="nine_picture_right_box fr">
 <a href="javascript:void(0)" id="nine_picture_close"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="nine_picture_h1">Collection Information</h1>
-<input type="text" placeholder="Work title" id="nine_picture_Work_title">
+<input type="text" placeholder="Work title" id="nine_picture_Work_title"/>
 <!-- <input type="text" placeholder="Year of creation" id="nine_picture_Year_of_creation" readOnly="true"/> -->
-<input type="text" id="inputid_collection_tags">
+<!-- 关键词 -->
+<div id="inputid_collection_tags">
+	<div id="inputid_collection_tags_con"></div>
+	<input type="text" placeholder="Please enter the label" onkeyup="this.value=this.value.replace(' ','')" id="wer" onclick="collection_spaceclick()"/>
+	<div id="input_tagg_idnumber"></div>
+</div>
+
 <select id="inputid_collection_categories" class="collection_update_warning">
 <option value="">All Media</option>
 <option value="Collage">Collage</option>
@@ -901,9 +976,9 @@ inputid_collection_pimg.onload = function() {
 <option value="Surrealism">Surrealism</option>
 <option value="other">other</option>
 </select>
-
 <textarea placeholder="Work description" id="nine_picture_textarea"></textarea>
-<a href="javascript:void(0)" id="acla_collection_select">Select</a>
+<input type="hidden" id="collection_inputid_collevtionid" placeholder="收藏夹id"/>
+<a href="javascript:void(0)" id="acla_collection_select" onclick="collection_select_view()">Select</a>
 <a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
 <!-- <a href="javascript:void(0)">Save Your nine_picture</a> -->
 </div>
@@ -1020,8 +1095,6 @@ inputid_collection_pimg.onload = function() {
 
 <!-- 页码 -->
 <input style="display:none" value="1" id="inputid_collection_page"/>
-
-<div class="collection_tuozhuai" id="collection_tuozhuai_mengban">Drop files to upload</div>
 
 </body>
 </html>
