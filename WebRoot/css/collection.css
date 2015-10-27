@@ -91,6 +91,30 @@ input:focus{outline:none}
   box-shadow: 0px 0px 15px #ec008b;
 }
 
+#collection_add_save{
+  display:block;
+  margin:0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  color:#000;
+  width: 130px;
+  text-decoration: none;
+  transition: all 1s ease-out;
+  -webkit-transition: -webkit-box-shadow 0.5s ease-out;
+  -moz-transition: -moz-box-shadow 0.5s ease-out;
+  -o-transition: box-shadow 0.5s ease-out;
+  }
+
+#collection_add_save:hover {
+  text-decoration: none;
+  background: #ec008b;
+  color: #FFFFFF;
+  border: #fff solid 1px;
+  -moz-box-shadow: 0px 0px 10px #ec008b;
+  -webkit-box-shadow: 0px 0px 15px #ec008b;
+  box-shadow: 0px 0px 15px #ec008b;
+}
+
 #acla_collection_back:hover {
   text-decoration: none;
   background: #ec008b;
@@ -316,8 +340,11 @@ input:focus{outline:none}
 #collection_saveyourpool{
 	text-decoration:none;
 	color:#000;
-	margin-left:30px;
-	margin-right:20px;
+	margin:0;
+	margin-top:20px;
+	margin-left:37px;
+	margin-right:10px;
+	padding:0;
 	transition:all 1s ease-out;
 	-webkit-transition: -webkit-box-shadow 0.5s ease-out;
 	-moz-transition: -moz-box-shadow 0.5s ease-out;
@@ -336,6 +363,9 @@ input:focus{outline:none}
 	
 
 #cool_download{
+	margin-top:-26px;
+	margin-left:172px;
+	padding:0;
 	color:#000;
 	transition:all 1s ease-out;
 	-webkit-transition: -webkit-box-shadow 0.5s ease-out;
@@ -776,11 +806,7 @@ input:focus{outline:none}
 	}
 	
 	
-#inputid_collection_tags{
-	display:block;
-	margin:0 auto;
-	margin-bottom:10px;
-}
+
 	
 #creat_information_textarea{ 
 	display:block;
@@ -942,7 +968,22 @@ input:focus{outline:none}
 	font-family:Arial;
 	}
 	
+
+
 	
+.collection_update_warning{
+	width:130px; 
+	height:32px; 
+	border-radius:5px; 
+	outline:none; 
+	margin-bottom:10px; 
+	border:solid 1px #9b9ea0; 
+	padding-left:10px; 
+	font-family:Arial;
+	}
+	
+.collection_update_warning1{margin-left:26px;margin-right:13px;}
+#inputid_collection_tagszxc{display:block;margin:0 auto;margin-bottom:10px;}
 #inputid_collection_prices{
 	display:block;
 	width:272px; 
@@ -999,7 +1040,7 @@ input:focus{outline:none}
 	}
 	
 .creat_information_right_box a{
-	float:left; 
+	display:block; 
 	margin:0 auto; 
 	width:124px; 
 	height:24px; 
@@ -1279,7 +1320,7 @@ progress::-webkit-progress-value{
 	
 #nine_picture_textarea{ 
 	display:block;
-	height:211px; 
+	height:205px; 
 	width:258px; 
 	border-radius:5px; 
 	margin:0 auto; 
@@ -2629,5 +2670,70 @@ margin-left:2px;
 margin-right:2px;
 margin-bottom:3px;
 }
+
+
+<!--关键词2-->
+
+#input_tagg_idnumber{
+	
+	color: #ec008b;
+	width:20px;
+	height:20px;
+    overflow: hidden;
+    float:left;
+	}
+
+#wer2{
+	float:left;
+	width:53%;
+	border:none;
+	box-shadow:none;
+	margin:0;
+	padding:0;
+	text-align:center;
+	line-height:20px;
+	}
+
+#inputid_collection_tags2{
+	display:block;
+    width:274px;
+    margin:0 auto; 
+    border:solid 1px #ccc; 
+	margin-bottom:10px;
+	border-radius:4px;
+	padding-bottom:2px;
+    padding-top:5px;
+    clear:both;
+	overflow:hidden;
+    
+}
+
+#inputid_collection_tags2_con{
+	margin-left: 20px;
+}
+
+#inputid_collection_tags2 b{ 
+	float:right; 
+	width:16px; 
+	height:16px;  
+	margin-top:2px;
+	line-height: 16px;
+    text-align: center;
+    color:#8f8c8c;
+    font-size:17px;
+    cursor: pointer;
+	}
+	
+	
+.inputid_collection_tags2{ 
+float:left; 
+border:solid #d7d7d7 1px;  
+background:#f4f4f4;
+border-radius:4px;
+margin-left:2px;
+margin-right:2px;
+margin-bottom:3px;
+}
+
 
 

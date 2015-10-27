@@ -1,6 +1,7 @@
 ﻿var collection_curCollectionId="";//当前收藏夹Id
 var collection_poolArr=[];//收藏夹作品集合
 var collection_pools;//被收藏的作品集合
+var collection_input_coollable =new Array(); //收藏夹标签的集合
 var collection_checkPool_checkCollection="pool";
 var fileServerUrl="";
 
@@ -83,7 +84,7 @@ function collection_openUpdateCollection(collectionId){
 			//$("#ulid_collection_addcollection").html(html);
 			//collection_initCollection(collectionId);
 			$("#ulid_collection_cScanBox").html(html);
-			$("#ulid_collection_cScanBox").attr("class","creat_information_ul");
+			$("#ulid_collection_cScanBox").attr("class","creat_information_ul sortable");
 		}
 	});
 }
@@ -118,6 +119,14 @@ function collection_clearCollection(){
 
 //添加收藏/点击收藏夹(无选中收藏夹)
 function collection_openAddCollection(){
+	collection_input_coollable=[];
+	for( var num=0;num<6;num++){
+		var obj = document.getElementById("inputid_collection2_taglable"+num);
+		if(obj!=undefined && obj!=null){
+			obj.parentNode.removeChild(obj);
+		}
+	}
+	
 	collection_curCollectionId="";//初始化被选中收藏夹ID/用于判断是save或update
 	$.ajax({
 		url:"system/system_findAddCollectionList.do",
@@ -133,7 +142,7 @@ function collection_openAddCollection(){
 				html+="<li id=\""+pools[i].id+"\"><a href=\"javascript:void(0)\" onclick=\"collection_selectWorks(this,'"+pools[i].id+"')\" ><img class=\"imgclass_collection_works\" src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\"/></a><span class=\"not\" onclick=\"ck('"+pools[i].id+"')\" ></span></li>";
 			}
 			$("#ulid_collection_addcollection").html(html);
-			collection_clearCollection()
+			collection_clearCollection();
 		}
 	});
 }
@@ -185,26 +194,27 @@ function collection_closeBox(){
 	$("#wer").val(""); 
 }
 
-//提交选中的作品到收藏夹
+//以存在的收藏夹提交选中的作品到收藏夹
 function collection_addCollectionSubmit(){
 	var poolsStr="";
 	var collectionTitle=$("#nine_picture_Work_title").val();
 	var categories=$("#inputid_collection_categories").val();
 	var styles=$("#inputid_collection_styles").val();
-	var cDesc=$("#nine_picture_textarea").val();	
-	var obj = $("#input_hidden_tags").val();
-	if(obj!=undefined && obj!=""){
-		collection_input_coollable.push(obj);
-	}
+	var cDesc=$("#nine_picture_textarea").val();
 	var lable="";
-	for(var num=0;num<collection_input_coollable.length;num++){
-		lable+=collection_input_coollable[num]+",";
+	var taglaber=$("#input_hidden_tags").val();
+	if(taglaber!=undefined && taglaber!=""){
+		collection_input_coollable.unshift(taglaber)+",";
 	}
+	lable=collection_input_coollable.join(",")+",";
+	//alert(lable);
 	if(collection_poolArr==undefined||collection_poolArr.length<1){
 		public_err_prompt("Choose work",$(""));
 	}else if(collectionTitle==undefined||collectionTitle==""){
 		//alert(collectionTitle);
 		public_err_prompt("Title can not be empty",$("#inputid_collection_cname"));
+	}else if(cDesc.length>1200){
+		public_err_prompt("Description Can't be better than 1200 characters",$("#creat_collection_textarea"));
 	}else{
 		for(var i in collection_poolArr){
 			poolsStr+=collection_poolArr[i]+",";
@@ -219,11 +229,59 @@ function collection_addCollectionSubmit(){
 				"collection.clabel":lable},
 			success:function(){
 				collection_closeBox();
+				collection_input_coollable=[];
+				collection_iniCollection();
+				n=1;
+			}
+		});
+	}
+}
+
+//新建收藏夹提交选中的作品到收藏夹
+function collection_saveCollectionSubmit(){
+	var poolsStr="";
+	var collectionTitle=$("#inputid_collection_cname").val();
+	var cNum=$("#inputid_collection_cLimitNum").val();
+	var cDesc=$("#creat_collection_textarea").val();
+	
+	var categories=$("#inputid_collection_categories").val();
+	var styles=$("#inputid_collection_styles").val();
+	var subject=$("#inputid_collection_prices").val();
+	var color=$("#inputid_collection_colors").val();
+	
+	var lable;
+	lable=collection_input_coollable.join(",")+",";
+
+	if(collection_poolArr==undefined||collection_poolArr.length<1){
+		public_err_prompt("Choose work",$(""));
+	}else if(collectionTitle==undefined||collectionTitle==""){
+		public_err_prompt("Title can not be empty",$("#inputid_collection_cname"));
+	}else if(cDesc.length>1200){
+		public_err_prompt("Description Can't be better than 1200 characters",$("#creat_collection_textarea"));
+	}else{
+		for(var i in collection_poolArr){
+			poolsStr+=collection_poolArr[i]+",";
+		}
+		poolsStr=poolsStr.substring(0,poolsStr.length-1);
+		var isAdd=collection_curCollectionId==""?"yes":"no";//判断是否是添加/修改
+		$.ajax({
+			url:"system/system_saveCollection.do",
+			type:"post",
+			data:{"isAdd":isAdd,"poolIds":poolsStr ,"collection.id":collection_curCollectionId,"collection.collectiontitle":collectionTitle,
+				"collection.printquantity":cNum,"collection.descriptionof":cDesc,
+				"collection.categories":categories,"collection.styles":styles,"collection.subject":subject,"collection.color":color,
+				"collection.clabel":lable},
+			success:function(){
+				$(".window2").slideUp(300);
+				$(".bj2").fadeOut(300);
 				collection_iniCollection();
 			}
 		});
 	}
 }
+
+
+
 
 //选则收藏夹内作品
 function collection_selectWorks(obj,poolId){
@@ -479,12 +537,14 @@ function collection_closeWorksBox(){
 
 //打开收藏夹浏览框
 function collection_openCollectionScan(collectionId){
-	for( var num=1;num<6;num++){
+	for( var num=0;num<6;num++){
 		var obj = document.getElementById("inputid_collection_taglable"+num);
 		if(obj!=undefined && obj!=null){
 			obj.parentNode.removeChild(obj);
 		}
 	}
+	collection_input_coollable=[];
+	$("#input_hidden_tags").val("");
 	//关闭页头
 	$("#cool_navigation").hide();
 	var html="";
@@ -511,29 +571,36 @@ function collection_openCollectionScan(collectionId){
 	$("#inputid_collection_categories").val(collection_pools[index].categories);
 	$("#inputid_collection_styles").val(collection_pools[index].styles);
 	var lbr=collection_pools[index].clabel;
-	var msg = lbr.substring(0, lbr.lastIndexOf(','));
-	$("#input_hidden_tags").val(msg);
-	var lbrs=[];
-	lbrs = lbr.split(",");
-	for(var num=0;num<lbrs.length;num++){
-		//alert(lbrs[num]);
-		if(lbrs[num]!=undefined && lbrs[num]!=""){
-			$("#inputid_collection_tags_con").append("<div class=\"inputid_collection_tags\" id=\"inputid_collection_taglable"+(num+1)+"\">"+lbrs[num]+"<b onclick=\"collection_modifytags('inputid_collection_taglable"+(num+1)+"')\">x</b></div>");	
+	var nm=1;
+	if(lbr!=undefined && lbr!=""){
+		var	msg = lbr;
+		$("#input_hidden_tags").val(msg);
+		
+		var lbrs=[];
+		lbrs = lbr.split(",");
+		for(var num=0;num<lbrs.length;num++){
+			//alert(lbrs[num]);
+			if(lbrs[num]!=undefined && lbrs[num]!="" &&lbrs[num]!=","){
+				$("#inputid_collection_tags_con").append("<div class=\"inputid_collection_tags\" id=\"inputid_collection_taglable"+nm+"\">"+lbrs[num]+"<b onclick=\"collection_modifytags('inputid_collection_taglable"+nm+"')\">x</b></div>");	
+				$("#input_tagg_idnumber").html(5-nm);
+				nm++;
+				n=nm;
+			}
 		}
-		//alert(num);
-		$("#input_tagg_idnumber").html(5-num);
-		n=num+1;
+	}else{
+		$("#input_tagg_idnumber").html("5");
+		n=1;
 	}
-
 	$("#ulid_collection_cScanBox").html(html);
+	$("#ulid_collection_cScanBox").attr("class","nine_picture_ul3 sortable");
 	$("#acla_collection_select").html("Select");
-	$("#ulid_collection_cScanBox").attr("class","nine_picture_ul3");
 	//$("#ulid_collection_addcollection").html(html);
 	$("#nine_picture_t_bj_zuopin").show(100);
 	$("#nine_picture_t_window_zuopin").show(300);
 	$("#input_index").val(index);
 	$("#input_page").val(num);
 	$("#collection_inputid_collevtionid").val(collectionId);
+	collection_poolorder();
 }
 
 //select和back 切换
@@ -550,36 +617,191 @@ function collection_select_view(){
 }
 
 
-//删除收藏夹标签
+//拖拽决定图片的次序
+function collection_poolorder(){
+	//存储初始化时数据的排序顺序
+	var order = new Array();    
+    $("#ulid_collection_cScanBox").find('li').each(function(){
+    	order.push($(this).text());
+    })
+    alert(order);
+	//当用户停止排序和DOM的位置发生了变化时触发
+	   $('.sortable').sortable().bind('sortupdate', function() {
+	//排序后数据的顺序
+	var arr = new Array();
+	$("#ulid_collection_cScanBox").find('li').each(function(){
+		arr.push($(this).text());
+	   })
+	alert(arr);
+	
+	//提交到服务器
+	   $.ajax({
+	       url: "/DFHandler.ashx",
+	   data: JSON.stringify(arr),
+	   type: "POST",
+	   contentType: "application/json; charset=utf-8",
+	   dataType: "json",
+	   complete: function () {
+	       $("#loading").ajaxStop(function () {
+	       $(this).html("");
+	       $(this).empty(); // 或者直接清除
+	       });
+	   }, 
+	   //AJAX请求完成时隐藏loading提示  
+	   beforeSend: function () {
+	       $("#loading").ajaxStart(function () {
+	       $(this).html("<img src='../IMG/ajax-loader.gif' /><span style=' font-size:10pt; color:Black'>更新中...</span>");
+	               });
+	           },
+	           success: function (data) { 
+	           	
+	           }
+	       });
+	   });
+}
+
+
+//收藏夹添加关键词标签（已存在的收藏夹）	
+var n=1;
+function collection_spaceclick(){
+	var collid=$("#collection_inputid_collevtionid").val();
+	$("#wer").keypress(function (event) {
+	       if (event.keyCode == 0 || event.keyCode == 32){
+	    	   var lableval=$("#wer").val();
+	    	   if($("#inputid_collection_tag"+n).length>0){
+	  			 	alert("Unknown error");
+		  		}else{
+		  			if(n<6){		
+		  				//清除空格
+		  				/* var s = "asd ddd bbb sss";
+		  				var reg = //s/g;
+		  				var ss = s.replace(reg, ""); */
+		  				lableval=lableval.substr(0, 5);
+		  				lableval=lableval.replace(/\s/g, "");
+		  				if(lableval!=undefined && lableval!="" && !/\s/.test(lableval)){
+			  				//页面添加标签效果
+				  			$("#inputid_collection_tags_con").append("<div class=\"inputid_collection_tags\" id=\"inputid_collection_taglable"+n+"\">"+lableval+"<b onclick=\"collection_modifytags('inputid_collection_taglable"+n+"')\">x</b></div>");	
+				  			$("#input_tagg_idnumber").html(5-n);
+				  			n=n+1;
+				  			$("#wer").val("");
+			  				collection_input_coollable.unshift(lableval)+",";
+				  			//alert(collection_input_coollable);
+		  				} 
+		  			}else{
+		  				alert("Tags can only enter Five.");
+		  			}
+		  		}
+	       }
+	});
+}
+
+
+//删除收藏夹标签  （已存在的收藏夹）	
 function collection_modifytags(laberid){
-	 var dv_num = 0; 
-	 $(".inputid_collection_tags").each(function(){
-	    dv_num +=1;     
-	 })    
 	var labrrs=$("#"+laberid).text();
 	var obj = document.getElementById(laberid);
 	obj.parentNode.removeChild(obj);
+	var dv_num = 0; 
+	 $(".inputid_collection_tags").each(function(){
+	    dv_num +=1;     
+	 })    
+	n=5-dv_num;
 	var size=$("#input_tagg_idnumber").html();
 	var x = parseFloat(size);
 	x=x+1;
 	$("#input_tagg_idnumber").html(x);
-	n=n-1;
-	for(var i=laberid.charAt(laberid.length - 1);i<6;i++){
+	/*for(var i=laberid.charAt(laberid.length - 1);i<6;i++){
 		$("#inputid_collection_taglable"+i).each(function(){
 			$(this).attr('id','inputid_collection_taglable'+(i-1))
 		})    
-	}
+	}*/
 	var tag=$("#input_hidden_tags").val();
 	var msg = labrrs.substring(0, labrrs.lastIndexOf('x'));
-	var tagss;
-	if(laberid.indexOf(dv_num)){
-		tagss=tag.substring(0, tag.lastIndexOf(','));
-	}else{
-		tagss=tag.replace(msg+",","");
-	}	
-	//alert(tagss);
+	var tagss=tag.replace(msg+",","");
 	$("#input_hidden_tags").val(tagss);
+	//清除数组中不存在的元素 
+	for(var m=0;m<collection_input_coollable.length;m++){
+		if(collection_input_coollable[m]==msg){
+			collection_input_coollable=removeElement(m,collection_input_coollable);	
+		}
+	}
+
 }
+
+
+//收藏夹添加关键词标签（添加新的收藏夹）
+var count=1;
+function collection_spaceclick2(){
+	$("#wer2").keypress(function (event) {
+	       if (event.keyCode == 0 || event.keyCode == 32){
+	    	   var lableval=$("#wer2").val();
+	    	   if($("#inputid_collection_tag"+n).length>0){
+	  			 	alert("Unknown error");
+		  		}else{
+		  			if(count<6){		
+		  				lableval=lableval.substr(0, 5);
+		  				lableval=lableval.replace(/\s/g, "");
+		  				if(lableval!=undefined && lableval!=""){
+			  				//页面添加标签效果
+				  			$("#inputid_collection_tags2_con").append("<div class=\"inputid_collection_tags2\" id=\"inputid_collection2_taglable"+count+"\">"+lableval+"<b onclick=\"collection_modifytags2('inputid_collection2_taglable"+count+"')\">x</b></div>");	
+				  			$("#input_tagg_idnumber2").html(5-count);
+				  			count=count+1;
+				  			$("#wer2").val("");
+			  				collection_input_coollable.unshift(lableval)+",";
+				  			//alert(collection_input_coollable);
+		  				} 
+		  			}else{
+		  				alert("Tags can only enter Five.");
+		  			}
+		  		}
+	       }
+	});
+}
+
+//删除收藏夹标签  （添加新的收藏夹）
+function collection_modifytags2(laberid){
+	var labrrs=$("#"+laberid).text();
+	var obj = document.getElementById(laberid);
+	obj.parentNode.removeChild(obj);
+	var dv_num = 0; 
+	 $(".inputid_collection_tags2").each(function(){
+	    dv_num +=1;     
+	 })    
+	count=5-dv_num;
+	var size=$("#input_tagg_idnumber2").html();
+	var x = parseFloat(size);
+	x=x+1;
+	$("#input_tagg_idnumber2").html(x);
+	
+	var msg = labrrs.substring(0, labrrs.lastIndexOf('x'));
+	//清除数组中不存在的元素 
+	for(var m=0;m<collection_input_coollable.length;m++){
+		if(collection_input_coollable[m]==msg){
+			collection_input_coollable=removeElement(m,collection_input_coollable);	
+		}
+	}
+
+}
+
+
+
+
+
+
+//删除数组中的指定元素
+function removeElement(index,array)
+{
+ if(index>=0 && index<array.length)
+ {
+  for(var i=index; i<array.length; i++)
+  {
+   array[i] = array[i+1];
+  }
+  array.length = array.length-1;
+ }
+ return array;
+}
+
 
 
 /*//收藏夹浏览页/点击作品查看收藏夹详情

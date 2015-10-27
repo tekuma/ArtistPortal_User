@@ -16,6 +16,11 @@
 
 <script src="../js/dropzone.js"></script>
 
+<script src="../js/html5sortable/jquery.sortable.js"></script>
+<script src="../js/html5sortable/jquery.sortable.min.js"></script>
+
+
+
 <!-- 固定导航栏 -->
 <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css"/>
@@ -31,7 +36,6 @@
 </style>
 <script>
 var collection_uploadWork_timestamp=[];//上传作品时的时间戳集合
-var collection_input_coollable=[];//收藏夹标签的集合
 $(function(){
 	$.ajax({
 		url:"system/system_getServerFileUrl.do",
@@ -190,7 +194,7 @@ $(function(){
             	$(this).css("border-color","#ec008b");
  			});
         });
-        
+ 
 });
 
 //下拉到底部加载更多
@@ -446,40 +450,7 @@ function collection_checkPoolAndCollection(checked){
 	adaptivepoll(); 
 	//调用函数，获取数值 
 	window.onresize=adaptivepoll;
- 
 
-	//添加关键词标签	
-	function collection_spaceclick(){
-		var collid=$("#collection_inputid_collevtionid").val();
-		$("#wer").keypress(function (event) {
-		       if (event.keyCode == 0 || event.keyCode == 32){
-		    	   var lableval=$("#wer").val();
-		    	   if($("#inputid_collection_tag"+n).length>0){
-		  			 	alert("Unknown error");
-			  		}else{
-			  			if(n<6){		
-			  				//清除空格
-			  				/* var s = "asd ddd bbb sss";
-			  				var reg = //s/g;
-			  				var ss = s.replace(reg, ""); */
-			  				lableval=lableval.substr(0, 5);
-			  				if(lableval!=undefined && lableval!="" && !/\s/.test(lableval)){
-				  				//页面添加标签效果
-					  			$("#inputid_collection_tags_con").append("<div class=\"inputid_collection_tags\" id=\"inputid_collection_taglable"+n+"\">"+lableval+"<b onclick=\"collection_modifytags('inputid_collection_taglable"+n+"')\">x</b></div>");	
-					  			$("#input_tagg_idnumber").html(5-n);
-					  			n+=1;
-					  			$("#wer").val("");
-				  				collection_input_coollable.push(lableval);
-					  			//alert(collection_input_coollable);
-			  				}
-			  			}else{
-			  				alert("Tags can only enter Five.");
-			  			}
-			  		}
-		       }
-		});
-	}
-	
 	
 </script>
 
@@ -715,8 +686,17 @@ $(".dropzone").dropzone({
 <option value="green">green</option>
 <option value="other">other</option>
 </select>-->
-<input type="text" id="inputid_collection_tagszxc">
-<select id="inputid_collection_categoriesfq" class="collection_update_warning">
+
+
+<!-- 关键词2 -->
+<div id="inputid_collection_tags2">
+	<div id="inputid_collection_tags2_con"></div>
+	<input type="text" placeholder="Please enter the label" onkeyup="this.value=this.value.replace(' ','')" id="wer2" onclick="collection_spaceclick2()"/>
+	<div id="input_tagg_idnumber2"></div>
+</div> 
+
+
+<select id="inputid_collection_categoriesfq" class="collection_update_warning collection_update_warning1">
 <option value="">All Media</option>
 <option value="Collage">Collage</option>
 <option value="Drawing">Drawing</option>
@@ -854,8 +834,8 @@ $(".dropzone").dropzone({
 <option value="other">other</option>
 </select>-->
 <textarea placeholder="Write a few words on the intent of your work and what inspire you." id="creat_collection_textarea" class="collection_update_Warning"></textarea>
-<a href="javascript:void(0)" id="acla_collection_back">Back</a>
-<a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
+<!-- <a href="javascript:void(0)" id="acla_collection_back">Back</a> -->
+<a href="javascript:void(0)" id="collection_add_save" onclick="collection_saveCollectionSubmit()">Save</a>
 </div>
 </div>
 <!-- pool添加 -->
@@ -923,7 +903,7 @@ inputid_collection_pimg.onload = function() {
 </ul>
 </div>
 
-<input type="text" placeholder="隐藏标签" id="input_hidden_tags"/>
+<input type="hidden" placeholder="隐藏标签" id="input_hidden_tags"/>
 
 <div class="nine_picture_right_box fr">
 <a href="javascript:void(0)" id="nine_picture_close"><img src="../images/wire-framing_03.png" alt="" /></a>

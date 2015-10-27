@@ -8,7 +8,6 @@
 <script src="../js/jquery-1.11.2.min.js"></script>
 <link href="../css/pwreset.css" rel="stylesheet" type="text/css"/>
 
-
 <style>
 #errormsg{ position:fixed; top:48%; left:55%; margin-left:-126px; font-size:12px; display:none;color:red}
 </style>
@@ -104,8 +103,6 @@ function public_err_prompt(nr,obj){
 	}
 
 	
-
-
 
 
 </script>
