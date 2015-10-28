@@ -1,0 +1,24 @@
+apply plugin: 'maven'  
+    apply plugin: 'war'  
+    apply plugin: 'eclipse-wtp'  
+    apply plugin: 'jetty'  
+  
+    webAppDirName = 'webapp'  
+  
+    repositories {  
+        mavenCentral()  
+    }  
+  
+    dependencies {  
+        compile (  
+            "junit:junit:4.11",
+            "log4j:log4j:1.2.17",
+            "mysql:mysql-connector-java:5.1.24"
+        )  
+        testCompile(
+        "junit:junit:4.11"
+    ) 
+    }  
+
+	 
+
