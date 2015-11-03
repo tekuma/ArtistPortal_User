@@ -45,7 +45,7 @@ public class SystemService{
 		return (List<Pool>) this.publicJdbcDao
 				.getList(
 						"select ID,MemberID,Title,createTime,EntryLabel,Description,UploadTime,storeaddress from tk_pool_t where MemberID="
-								+ userId+" order by UploadTime desc limit "+page*10+",10", Pool.class);
+								+ userId+" order by UploadTime desc limit "+page*9+",9", Pool.class);
 	}
 	
 	/**
@@ -78,10 +78,10 @@ public class SystemService{
 	 */
 	public List<Pool> findCollectionByUserId(Integer userId){
 		return this.publicJdbcDao
-				.getList("select t1.id,t1.title,t1.storeaddress,t1.createTime,t1.entryLabel,t1.description , "
-						+ "t2.id relevancyid,t3.id collectionid,t3.CollectionTitle collectionTitle,t3.PrintQuantity printquantity,t3.DescriptionOf descriptionof,t3.Categories Categories,t3.Styles Styles,t3.Subject Subject,t3.color color from"
+				.getList("select t1.id,t1.title,t1.storeaddress,t1.createTime,t1.entryLabel,t1.description , t1.psort psort,"
+						+ "t2.id relevancyid,t3.id collectionid,t3.CollectionTitle collectionTitle,t3.PrintQuantity printquantity,t3.DescriptionOf descriptionof,t3.Categories Categories,t3.Styles Styles,t3.Subject Subject,t3.color color,t3.clabel clabel from"
 						+ " tk_pool_t t1 , tk_relevancy_t t2 , tk_collection_t t3 where t1.MemberID="+userId
-								+ " and t1.id=t2.POOLID and t2.COLLECTIONID=t3.id order by t3.CreateTime desc",Pool.class);
+								+ " and t1.id=t2.POOLID and t2.COLLECTIONID=t3.id order by t3.createtime desc,t3.id,t1.psort",Pool.class);
 		
 	}
 	

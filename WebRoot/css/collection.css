@@ -2629,7 +2629,6 @@ margin-bottom:10px;
 	box-shadow:none;
 	margin:0;
 	padding:0;
-	text-align:center;
 	line-height:20px;
 	}
 
@@ -2640,8 +2639,8 @@ margin-bottom:10px;
     border:solid 1px #ccc; 
 	margin-bottom:10px;
 	border-radius:4px;
-	padding-bottom:2px;
-    padding-top:5px;
+    padding-top:2px;
+    padding-bottom:2px;
     clear:both;
 	overflow:hidden;
     
@@ -2650,14 +2649,16 @@ margin-bottom:10px;
 
 #inputid_collection_tags b{ 
 	float:right; 
-	width:16px; 
-	height:16px;  
-	margin-top:2px;
-	line-height: 16px;
-    text-align: center;
+	width:10px; 
+	height:10px;  
+	margin-top:6px;
+	margin-left:5px;
+	margin-right:3px;
     color:#8f8c8c;
     font-size:17px;
     cursor: pointer;
+    background:url(../images/del_03.jpg) center center no-repeat;
+    background-size:10px 10px;
 	}
 	
 	
@@ -2665,16 +2666,16 @@ margin-bottom:10px;
 float:left; 
 border:solid #d7d7d7 1px;  
 background:#f4f4f4;
-border-radius:4px;
 margin-left:2px;
 margin-right:2px;
-margin-bottom:3px;
+line-height:22px;
+padding-left:3px;
 }
 
 
 <!--关键词2-->
 
-#input_tagg_idnumber{
+#input_tagg_idnumber2{
 	
 	color: #ec008b;
 	width:20px;
@@ -2690,7 +2691,6 @@ margin-bottom:3px;
 	box-shadow:none;
 	margin:0;
 	padding:0;
-	text-align:center;
 	line-height:20px;
 	}
 
@@ -2701,27 +2701,26 @@ margin-bottom:3px;
     border:solid 1px #ccc; 
 	margin-bottom:10px;
 	border-radius:4px;
-	padding-bottom:2px;
-    padding-top:5px;
+    padding-top:2px;
+    padding-bottom:2px;
     clear:both;
 	overflow:hidden;
     
 }
 
-#inputid_collection_tags2_con{
-	margin-left: 20px;
-}
 
 #inputid_collection_tags2 b{ 
 	float:right; 
-	width:16px; 
-	height:16px;  
-	margin-top:2px;
-	line-height: 16px;
-    text-align: center;
+	width:10px; 
+	height:10px;  
+	margin-top:6px;
+	margin-left:5px;
+	margin-right:3px;
     color:#8f8c8c;
     font-size:17px;
     cursor: pointer;
+    background:url(../images/del_03.jpg) center center no-repeat;
+    background-size:10px 10px;
 	}
 	
 	
@@ -2729,11 +2728,23 @@ margin-bottom:3px;
 float:left; 
 border:solid #d7d7d7 1px;  
 background:#f4f4f4;
-border-radius:4px;
 margin-left:2px;
 margin-right:2px;
-margin-bottom:3px;
+line-height:22px;
+padding-left:3px;
 }
+    
+}
+
+#inputid_collection_tags2_con{
+	margin-left: 20px;
+}
+
+
+
+
+
+
 
 
 

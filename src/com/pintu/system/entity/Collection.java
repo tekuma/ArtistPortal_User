@@ -18,8 +18,17 @@ public class Collection extends BaseEntity {
 	private String styles;
 	private String subject;
 	private String color;
+	private String clabel;//收藏标签
 	
 	
+	
+	
+	public String getClabel() {
+		return clabel;
+	}
+	public void setClabel(String clabel) {
+		this.clabel = clabel;
+	}
 	public String getColor() {
 		return color;
 	}

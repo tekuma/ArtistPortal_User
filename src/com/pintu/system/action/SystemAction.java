@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -288,6 +289,7 @@ public class SystemAction extends BaseAction {
 		this.strReturnJson(isSuccess);
 	}
 
+	//提交选中的作品到收藏夹
 	public void saveCollection() {
 		String poolIdStr = this.request.getParameter("poolIds");// 作品Id数组
 		String isAdd=this.request.getParameter("isAdd");//是否添加收藏/修改
@@ -319,6 +321,10 @@ public class SystemAction extends BaseAction {
 			pool.setMemberid(member.getId());
 			pool.setId(this.systemService.getPublicJdbcDao().getTempInt("select sys_seqnextval_f ('tk_pool_t')", 0));
 			pool.setStoreaddress(member.getId()+"/"+pool.getId()+"."+imgSuffix);
+			String sql="select max(psort) from tk_pool_t";
+			int psort=this.systemService.getPublicJdbcDao().getTempInt(sql, 1);
+			pool.setPsort(psort+1);
+			
 			for(int i=0;i<uploadFileName.length;i++){
 				imgname=uploadFileName[i];
 			}
@@ -477,9 +483,9 @@ public class SystemAction extends BaseAction {
                     b[i]+=256;  
                 }  
             }  
-        
             //生成jpeg图片  
             imgFilePath = LOCALFILEURL+userId+"/head/"+userId+"."+imgSuffix;//新生成的图片  
+            
             File file=new File(LOCALFILEURL+userId);
             if(!file.exists()){    
                 file.mkdir();
@@ -488,6 +494,7 @@ public class SystemAction extends BaseAction {
             if(!file.exists()){
             	file.mkdir();
             }
+            
             OutputStream out = new FileOutputStream(imgFilePath);      
             out.write(b); 
             out.flush();  
@@ -596,7 +603,7 @@ public class SystemAction extends BaseAction {
 				
 				//用户名密码保存到cookie一年
 				Cookie cookieuser = new Cookie("user",member.getLoginname()+"-"+member.getLoginpwd()); 
-				cookieuser.setMaxAge(365*24*60*60);
+				cookieuser.setMaxAge(365 * 24 * 60 * 60); 
 				response.addCookie(cookieuser); 
 
 			}else{
@@ -620,6 +627,7 @@ public class SystemAction extends BaseAction {
 		session.setAttribute("member",member);
 		
 	}
+	
 	/**
 	 * 发送邮件
 	 * @throws ServletException
@@ -880,13 +888,13 @@ public class SystemAction extends BaseAction {
     }
 	
     /**
-	 * 跳转登陆页面
+	 * 自动登陆跳转登陆页面
 	 * @return
 	 */
 	public void getCookes(){
 		
 		String data = ""; //用户名 密码
-		Cookie[] cookies = request.getCookies();
+		Cookie cookies[] = request.getCookies();
 		if(cookies != null){
 			for(int i=0;i<cookies.length;i++){
 				if(cookies[i].getName().equals("user")){  
@@ -998,7 +1006,7 @@ public class SystemAction extends BaseAction {
 		
 		String name = ""; //用户名
 		String passward = ""; //密码
-		Cookie[] cookies = request.getCookies();
+		Cookie cookies[] = request.getCookies();
 		if(cookies != null){
 			for(int i=0;i<cookies.length;i++){
 				if(cookies[i].getName().equals("user")){  
@@ -1031,6 +1039,31 @@ public class SystemAction extends BaseAction {
 	public String goReset(){
 		return "reset";
 	}
+	
+	/**
+	 * 收藏夹查看页-作品拖拽排序
+	 */
+	public void collictionpoolSort(){
+		String id=this.request.getParameter("sortid");
+		String px=this.request.getParameter("sort");
+		String[] sortid; 
+		String[] sortpx; 
+		sortid=id.split(",");
+		sortpx=px.split(",");
+		//string[]数组转为int[]
+		int[] intpx=new int[sortpx.length];
+		for(int j=0;j<sortpx.length;j++){
+			intpx[j]=Integer.parseInt(sortpx[j]);
+		}
+		Arrays.sort(intpx);//按数字升序进行排序。
+		//System.out.println("添加到数据库的顺序");
+		for(int i=0;i<sortid.length;i++){
+			//System.out.println(sortid[i]+"+"+intpx[i]);
+			String sql="update tk_pool_t set psort='"+intpx[i]+"' where ID="+sortid[i];
+			this.systemService.getPublicJdbcDao().executeSQL(sql);
+		}
+	}
+	
 	
 	/**
 	 * 跳转上传头像页面

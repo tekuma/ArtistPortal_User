@@ -20,7 +20,6 @@
 <script src="../js/html5sortable/jquery.sortable.min.js"></script>
 
 
-
 <!-- 固定导航栏 -->
 <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css"/>
@@ -194,7 +193,7 @@ $(function(){
             	$(this).css("border-color","#ec008b");
  			});
         });
- 
+        
 });
 
 //下拉到底部加载更多
@@ -337,8 +336,8 @@ function collection_checkPoolAndCollection(checked){
 //点击弹框以外部分关闭弹框
 	//关闭查看pool作品弹框
 	function window2_hide(){
-		$("#divid_collection_window2").fadeOut(300);
-		$("#divid_collection_bj2").fadeOut(300);
+		$("#divid_collection_window2").fadeTo("slow",0.15);
+		$("#divid_collection_bj2").fadeTo("slow",0.15);
 	}
 	//关闭查看Collection收藏夹弹框
 	function zuopin_hide(){
@@ -394,12 +393,12 @@ function collection_checkPoolAndCollection(checked){
 			var temp3=$("#index_user_m").is(":hidden");//是否隐藏
 			var temp4=$("#index_setup_m").is(":hidden");//是否隐藏
 			if(temp==true&&temp2==true&&temp3==true&&temp4==true){
-				$("#cool_navigation").fadeIn();
+				$("#cool_navigation").fadeIn(200);
 			}else{
-				$("#cool_navigation").hide();
+				$("#cool_navigation").fadeOut(200);
 			}
 		}else{
-			$("#cool_navigation").hide();
+			$("#cool_navigation").fadeOut(200);
 		}
 		//打印日志
 		//console.log(st);
@@ -450,7 +449,7 @@ function collection_checkPoolAndCollection(checked){
 	adaptivepoll(); 
 	//调用函数，获取数值 
 	window.onresize=adaptivepoll;
-
+ 
 	
 </script>
 
@@ -627,9 +626,9 @@ $(".dropzone").dropzone({
             			$("#collection_tuozhuai_mengban").hide();
             		});
             	}); */
-            	$("#collection_tuozhuai_mengban").show();
+            	$("#collection_tuozhuai_mengban").fadeIn(100);
             	$("body").mouseover(function(){
-        			$("#collection_tuozhuai_mengban").hide();
+        			$("#collection_tuozhuai_mengban").fadeOut(100);
         		});
             });            
             
@@ -691,10 +690,9 @@ $(".dropzone").dropzone({
 <!-- 关键词2 -->
 <div id="inputid_collection_tags2">
 	<div id="inputid_collection_tags2_con"></div>
-	<input type="text" placeholder="Please enter the label" onkeyup="this.value=this.value.replace(' ','')" id="wer2" onclick="collection_spaceclick2()"/>
-	<div id="input_tagg_idnumber2"></div>
+	<input type="text" onfocus="if(this.value=='Tag')this.value=''" value="Tag" onkeyup="this.value=this.value.replace(' ','')" id="wer2" onclick="collection_spaceclick2()"/>
+	<div id="input_tagg_idnumber2" style="display: none;"></div>
 </div> 
-
 
 <select id="inputid_collection_categoriesfq" class="collection_update_warning collection_update_warning1">
 <option value="">All Media</option>
@@ -710,7 +708,7 @@ $(".dropzone").dropzone({
 <option value="other">other</option>
 </select>
 <!--标签2 -->
-<select id="inputid_collection_stylesfq" class="collection_update_warning">
+<select id="inputid_collection_stylesfq" class="collection_update_warning collection_update_warning2">
 <option value="">All Styles</option>
 <option value="Abstract">Abstract</option>
 <option value="Abstract Expressionism">Abstract Expressionism</option>
@@ -889,6 +887,7 @@ inputid_collection_pimg.onload = function() {
 <textarea placeholder="Project Description(maximum 500 characters)" id="inputid_collection_pdesc"  class="pool_add_warning"></textarea>
 <a href="javascript:void(0)" id="collection_saveyourpool" onclick="collection_comitWorks()">Save</a>
 <!-- 下载链接 -->
+<div class="clear"></div>
 <a id="cool_download">Download</a>
 </div>
 <input type="hidden" id="pool_flipid" value=""/>
@@ -910,12 +909,14 @@ inputid_collection_pimg.onload = function() {
 <h1 class="nine_picture_h1">Collection Information</h1>
 <input type="text" placeholder="Work title" id="nine_picture_Work_title"/>
 <!-- <input type="text" placeholder="Year of creation" id="nine_picture_Year_of_creation" readOnly="true"/> -->
+
 <!-- 关键词 -->
 <div id="inputid_collection_tags">
-	<div id="inputid_collection_tags_con"></div>
-	<input type="text" placeholder="Please enter the label" onkeyup="this.value=this.value.replace(' ','')" id="wer" onclick="collection_spaceclick()"/>
-	<div id="input_tagg_idnumber"></div>
+	<div id="inputid_collection_tags_con"></div>	
+	<div id="input_tagg_idnumber" style="display: none;"></div>
+	<input type="text" onfocus="if(this.value=='Tag')this.value=''" value="Tag" onkeyup="this.value=this.value.replace(' ','')" id="wer" onclick="collection_spaceclick()"/>
 </div>
+
 
 <select id="inputid_collection_categories" class="collection_update_warning">
 <option value="">All Media</option>
@@ -967,9 +968,9 @@ inputid_collection_pimg.onload = function() {
 <!--collection的二次弹框 -->
 <div class="collection2_window2" id="divid_collection_window2">
 <a href="#" class="collection2_l" onclick="collectionleft()"><img src="../images/jt.png" alt=""/></a>
-<input type="hidden" id="input_index" placeholder="最大页"/>
-<input type="hidden" id="input_collection2_l" placeholder="当前页"/>
-<input type="hidden" id="input_page" placeholder="总共页数"/>
+<input type="text" id="input_index" placeholder="最大页"/>
+<input type="text" id="input_collection2_l" placeholder="当前页"/>
+<input type="text" id="input_page" placeholder="总共页数"/>
 <div class="collection2_left_box fl" id="left_box">
  <div class="collection2_img" id="image-wrap">
 <img class="inputid_collectionpool_pimg" />

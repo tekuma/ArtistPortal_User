@@ -27,8 +27,23 @@ public class Pool extends BaseEntity {
 	private String subject;
 	private String color;
 	
+	private String clabel;//收藏标签
 	private String thumbnailurlac;//单个作品查看时的压缩图地址
+	private Integer psort;//作品在收藏夹里的排序
 	
+	
+	public Integer getPsort() {
+		return psort;
+	}
+	public void setPsort(Integer psort) {
+		this.psort = psort;
+	}
+	public String getClabel() {
+		return clabel;
+	}
+	public void setClabel(String clabel) {
+		this.clabel = clabel;
+	}
 	public String getThumbnailurlac() {
 		return thumbnailurlac;
 	}
