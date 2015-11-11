@@ -675,7 +675,7 @@ function collection_spaceclick(){
 		  				/* var s = "asd ddd bbb sss";
 		  				var reg = //s/g;
 		  				var ss = s.replace(reg, ""); */
-		  				lableval=lableval.substr(0, 5);
+		  				//lableval=lableval.substr(0, 5);
 		  				lableval=lableval.replace(/\s/g, "");
 		  				if(lableval!=undefined && lableval!="" && !/\s/.test(lableval)){
 			  				//页面添加标签效果
@@ -737,7 +737,7 @@ function collection_spaceclick2(){
 	  			 	alert("Unknown error");
 		  		}else{
 		  			if(count<6){		
-		  				lableval=lableval.substr(0, 5);
+		  				//lableval=lableval.substr(0, 5);
 		  				lableval=lableval.replace(/\s/g, "");
 		  				if(lableval!=undefined && lableval!=""){
 			  				//页面添加标签效果
