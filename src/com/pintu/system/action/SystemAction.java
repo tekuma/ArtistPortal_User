@@ -95,7 +95,7 @@ public class SystemAction extends BaseAction {
     private int height;  
 	private String imgSuffix;//文件后缀名
 	//常量
-	private final static String LOCALFILEURL="d://project/TekumaUserServer_tup/";//服务器本地地址
+	public  static String LOCALFILEURL="";//服务器本地地址
 	private final static Integer YS_WIDTH=210;//压缩图片宽度
 	private final static Integer YS_HEIGHT=210;//压缩图片高度
 	private final static String YX_NAME="artist@tekuma.io";//邮箱登陆名
@@ -322,7 +322,7 @@ public class SystemAction extends BaseAction {
 			pool.setId(this.systemService.getPublicJdbcDao().getTempInt("select sys_seqnextval_f ('tk_pool_t')", 0));
 			pool.setStoreaddress(member.getId()+"/"+pool.getId()+"."+imgSuffix);
 			String sql="select max(psort) from tk_pool_t";
-			int psort=this.systemService.getPublicJdbcDao().getTempInt(sql, 1);
+			int psort=this.systemService.getPublicJdbcDao().getTempInt(sql, 0);
 			pool.setPsort(psort+1);
 			
 			for(int i=0;i<uploadFileName.length;i++){
@@ -344,7 +344,10 @@ public class SystemAction extends BaseAction {
 				} 
 				copy(upload[0], file);
 				FileInputStream is = null;  
-		        ImageInputStream iis = null;  
+		        ImageInputStream iis = null; 
+		        
+		        
+		        
 		        // 读取图片文件  
 		        is = new FileInputStream(upload[0]);  
 		        Iterator<ImageReader> it = ImageIO  
@@ -753,6 +756,9 @@ public class SystemAction extends BaseAction {
 	public void getServerFileUrl(){
 		String sql="select csz from sys_param_t where bh=1";
 		List<String> list=this.systemService.getPublicJdbcDao().getList(sql);
+		String Sql="select csz from sys_param_t where bh=2";
+		List<String> listdz=this.systemService.getPublicJdbcDao().getList(Sql);
+		LOCALFILEURL=listdz.get(0);
 		this.strReturnJson(list.get(0));
 	}
 	
