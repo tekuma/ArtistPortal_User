@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="TekumaUserServer">
+    <wb-module deploy-name="ArtistPortal_User">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/TekumaUserServer/WebRoot/WEB-INF/classes"/>
-        <property name="context-root" value="/TekumaUserServer"/>
+        <property name="java-output-path" value="/ArtistPortal_User/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="/ArtistPortal_User"/>
     </wb-module>
 </project-modules>
