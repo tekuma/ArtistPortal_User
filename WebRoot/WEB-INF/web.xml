@@ -9,7 +9,7 @@
   </listener>
   <context-param>
     <param-name>webAppRootKey</param-name>
-    <param-value>TekumaUserServerServer.root</param-value>
+    <param-value>ArtistPortal_User.root</param-value>
   </context-param>
   <context-param>
     <param-name>log4jConfigLocation</param-name>
