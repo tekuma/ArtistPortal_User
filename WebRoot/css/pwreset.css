@@ -7,7 +7,7 @@ ul,ol{ list-style:none;}
 a{text-decoration:underline;color:#000000;}
 a:hover{ color:#df611e;color:#000000;}
 img{ border:none}
-input:focus{ outline:none} 
+input:focus{ outline:none}
 .fl{ float:left}
 .fr{ float:right}
 .rel{ position:relative}
@@ -20,16 +20,12 @@ input:focus{ outline:none}
 .passwd_content {position: absolute;top: 50%;left: 50%;margin-left: -200px;margin-top: -280px;width: 330px;height: 490px;border: solid 1px #909090;border-radius: 3px;}
 .passwd_t{ display:block; width:248px; height:31px; border-radius:5px; border:solid 1px #929597; margin-left:32px; padding-left:10px; font-size:12px;margin-bottom:8px; font-family:Arial;}
 #d{ display:block; width:98px; height:31px; border-radius:5px; border:solid 1px #929597; margin-left:32px; padding-left:10px; font-size:12px;margin-bottom:8px; font-family:Arial;background:none;border:#000 solid 1px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
-#d:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;cursor: pointer;}
+#d:hover{background:#ec008b;color:#FFFFFF; /* -moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b; kun */border:solid 1px #fff;cursor: pointer;}
 .passwd_Login_name{ margin-top:98px;}
 .passwd_submit{ text-decoration:none; display:block; width:157px; height:28px; line-height:23px; border:#000 solid 1px; border-radius:5px; background:none; margin-left:26%; margin-top:49px; font-family:Arial;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
-.passwd_submit:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
+.passwd_submit:hover{background:#ec008b;color:#FFFFFF; /* -moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b; */ border:solid 1px #fff;}
 #passwd_identifying_code{ width:140px; margin-right:-22px;}
 #passwd_get{ width:97px; margin-left:0; background:none; font-family:Arial; font-weight:normal;}
 .passwd_t1{ color:#FF0004; font-family:Arial; font-size:10px; margin-right:55px; margin-bottom:10px; display:none;}
 .passwd_t2{ color:#FF0004; font-family:Arial; font-size:10px; margin-right:55px; margin-bottom:10px; margin-right:55px; display:none;}
 .passwd_t3{ color:#FF0004; font-family:Arial; font-size:10px; margin-right:55px; margin-bottom:10px; margin-right:55px;display:none;}
-
-
-
-

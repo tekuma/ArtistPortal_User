@@ -7,7 +7,7 @@ ul,ol{ list-style:none;}
 a{text-decoration:underline;color:#000000;}
 a:hover{ color:#df611e;color:#000000;}
 img{ border:none}
-input:focus{ outline:none} 
+input:focus{ outline:none}
 .fl{ float:left}
 .fr{ float:right}
 .rel{ position:relative}
@@ -29,5 +29,3 @@ p{ margin-left:25%; margin-top:20px; color:#a3a3a3;}
 .upload_profile_picture_submit{ display:block; width:125px; height:23px; line-height:23px; border:solid 1px #a9acae; border-radius:5px; text-align:center; text-decoration:none; margin-top:31%; margin-left:33%;}
 
 /*裁剪框*/
-
-

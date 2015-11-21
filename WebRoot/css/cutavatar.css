@@ -7,95 +7,95 @@ ul,ol{ list-style:none;}
 a{text-decoration:underline;color:#000000;}
 a:hover{ color:#df611e;color:#000000;}
 img{ border:none}
-input:focus{ outline:none} 
+input:focus{ outline:none}
 .fl{ float:left}
 .fr{ float:right}
 .rel{ position:relative}
 .abs{ position:absolute}
 .clear{ clear:both; overflow:hidden;}
 
-.upload_profile_picture_header{ 
-	margin-top:6px; 
+.upload_profile_picture_header{
+	margin-top:6px;
 	margin-right:97px;
 	}
-	
-.upload_profile_picture_footer{ 
-	width:100%; 
-	height:52px; 
-	background:url(../images/01_landing-page_10.jpg) repeat-x; 
+
+.upload_profile_picture_footer{
+	width:100%;
+	height:52px;
+	background:url(../images/01_landing-page_10.jpg) repeat-x;
 	position:absolute;
-	 bottom:0; 
+	 bottom:0;
 	 line-height:52px;
 	 }
-	 
+
 .upload_profile_picture_footer span{
 	padding-right:83px;
 	}
-	
-	
-.upload_profile_picture_content{ 
+
+
+.upload_profile_picture_content{
 	margin:0 auto;
-	 width:330px; 
-	 height:490px; 
-	 border:solid 1px #909090; 
+	 width:330px;
+	 height:490px;
+	 border:solid 1px #909090;
 	 margin-top:30px;
 	 }
-	 
-	 
-.upload_profile_picture_picture img{ 
-	width:170px; 
-	height:170px; 
-	margin-top:16%; 
+
+
+.upload_profile_picture_picture img{
+	width:170px;
+	height:170px;
+	margin-top:16%;
 	margin-left:24%;
 	}
 
 
 .cropit-image-input{
-	display:block; 
-	width:125px; 
-	height:23px; 
-	border:solid 1px #a9acae; 
-	border-radius:5px; 
-	text-decoration:none; 
-	font-size:13px; 
-	text-align:center; 
-	line-height:23px; 
-	margin-left:33%; 
+	display:block;
+	width:125px;
+	height:23px;
+	border:solid 1px #a9acae;
+	border-radius:5px;
+	text-decoration:none;
+	font-size:13px;
+	text-align:center;
+	line-height:23px;
+	margin-left:33%;
 	margin-top:19px;
 	opacity:0;
 	}
-	
-	
+
+
 .cropit-image-input_none{
-	display:block; 
-	width:125px; 
-	height:23px; 
-	border:solid 1px #a9acae; 
-	border-radius:5px; 
-	text-decoration:none; 
+	display:block;
+	width:125px;
+	height:23px;
+	border:solid 1px #a9acae;
+	border-radius:5px;
+	text-decoration:none;
 	font-size:13px; 
-	text-align:center; 
-	line-height:23px; 
+	text-align:center;
+	line-height:23px;
 	position:absolute;
-	top:8%; 
+	top:8%;
 	left:45.5%;
 	}
 
 
-p{ 
-	margin-left:15%; 
-	margin-top:20px; 
+p{
+	margin-left:15%;
+	margin-top:20px;
 	color:#a3a3a3;
 	}
-	
-#caijian_upload{ 
-	width:125px; 
+
+#caijian_upload{
+	width:125px;
 	height:23px;
-	background:none; 
-	border:solid 1px #000;  
-	border-radius:3px; 
-	display:block; 
-	margin:0 auto; 
+	background:none;
+	border:solid 1px #000;
+	border-radius:3px;
+	display:block;
+	margin:0 auto;
 	margin-top:30px;
 	}
 /*裁剪框*/

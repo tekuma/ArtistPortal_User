@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,24 +66,24 @@ $(function(){
 				}
 			});
 		}
-	 }); 
+	 });
 
 	$("#nine_picture_close").click(function(){
 		  $("#nine_picture_t_window_zuopin").fadeOut(300);
 		  $("#nine_picture_t_bj_zuopin").fadeOut(300)
 	})
-	
+
 	$("#close1").click(function(){
 		  $("#divid_collection_bj1").fadeOut(300);
 		  $("#divid_collection_window1").fadeOut(300);
 	});
-	
+
 	 /* $("#ul1 a").click(function(){
 		var i=$(this).index("#ul1 a");
 		$(".xf:eq("+i+")").fadeIn().siblings().hide();
 	});  */
-	
-	
+
+
 	collection_iniCollection();//加载收藏夹
 	//加载用户修改信息弹框
 	$("#imgid_collection_head").click(function(){
@@ -92,53 +92,53 @@ $(function(){
 		$("#index_user_m").fadeIn(300)
 		$("#index_user").fadeIn(300);
 	});
-	
+
 	$("#index_user_close").click(function(){
 		$("#index_user").fadeOut(300);
 		$("#index_user_m").fadeOut(300)
 	});
-	
+
 	//设置
 	$("#imgid_collection_setup").click(function(){
 		$("#index_user").fadeOut(300);
 		$("#index_setup_m").fadeIn(300)
 		$("#index_setup").fadeIn(300)
 	})
-		
+
 	$("#index_setup_close").click(function(){
 		$("#index_setup").fadeOut(300)
 		$("#index_setup_m").fadeOut(300);
 	});
-	
+
 	$(".collection_update_warning").click(function(){
 		$(".collection_update_warning").css("border","solid 1px #929597");
 	});
 	$(".pool_add_warning").click(function(){
 		$(".pool_add_warning").css("border","solid 1px #929597");
 	});
-	
-	
+
+
 	//页面加载的时候判断是客户端还是pc端，同时设置pool和collection区域的宽度
-	var system = { 
-            win: false, 
-            mac: false, 
-            xll: false, 
-            ipad:false 
-        }; 
-        //检测平台 
-        var p = navigator.platform; 
-        system.win = p.indexOf("Win") == 0; 
-        system.mac = p.indexOf("Mac") == 0; 
-        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
-        system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false; 
-        //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面 
-        if (system.win || system.mac || system.xll||system.ipad) { 
+	var system = {
+            win: false,
+            mac: false,
+            xll: false,
+            ipad:false
+        };
+        //检测平台
+        var p = navigator.platform;
+        system.win = p.indexOf("Win") == 0;
+        system.mac = p.indexOf("Mac") == 0;
+        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+        system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+        //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面
+        if (system.win || system.mac || system.xll||system.ipad) {
  			//alert("computer");
  			var k;
         	if (window.innerWidth){
     			k = window.innerWidth;
     		}else if((document.body) && (document.body.clientWidth)){
-    			k = document.body.clientWidth; 
+    			k = document.body.clientWidth;
     		}
  			//alert(k);
  			if(k<=1130){
@@ -147,7 +147,7 @@ $(function(){
  				$("#divid_collection_items").width(k);
  				$(".collection_header").width(k);
  			}
-        } else { 
+        } else {
         	//alert("Mobile");
 			var winWidth=window.screen.width;
 			var wdth=230;
@@ -166,12 +166,12 @@ $(function(){
 				return false;
 				}
 			}
-        } 
-        
-        
+        }
+
+
         //获取页面所有input并添加样式
         $("input").each(function(){
-            //var value = $(this).val(); 
+            //var value = $(this).val();
             //失去焦点
             $(this).blur(function(event) {
             	$(this).css("border-color","#e9e9e9");
@@ -183,7 +183,7 @@ $(function(){
         });
       //获取页面所有textarea并添加样式
         $("textarea").each(function(){
-            //var value = $(this).val(); 
+            //var value = $(this).val();
             //失去焦点
             $(this).blur(function(event) {
             	$(this).css("border-color","#e9e9e9");
@@ -193,25 +193,25 @@ $(function(){
             	$(this).css("border-color","#ec008b");
  			});
         });
-        
+
 });
 
 //下拉到底部加载更多
-$(document).ready(function(){  
-    var range = 10;             //距下边界长度/单位px  
-    var elemt = 500;           //插入元素高度/单位px  
-    var maxnum = 200;            //设置加载最多次数  
-    var totalheight = 0;   
-    var main = $("#divid_collection_initwait");//主体元素  
-    $(window).scroll(function(){  
-        var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
-        totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
-        if(($(document).height()-range) <= totalheight  && collection_checkPool_checkCollection=="pool") { 
+$(document).ready(function(){
+    var range = 10;             //距下边界长度/单位px
+    var elemt = 500;           //插入元素高度/单位px
+    var maxnum = 200;            //设置加载最多次数
+    var totalheight = 0;
+    var main = $("#divid_collection_initwait");//主体元素
+    $(window).scroll(function(){
+        var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
+        totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+        if(($(document).height()-range) <= totalheight  && collection_checkPool_checkCollection=="pool") {
         	$("#img_butterfly").attr("src","../images/jz.gif");
         	setTimeout("collection_initPoolNextPage()",3000);
         	setTimeout("poolajimg()",3000);
-        }   
-    });  
+        }
+    });
 });
 //图片加载出来关闭滚动图
 function poolajimg(){
@@ -221,7 +221,7 @@ function poolajimg(){
 			var arr = document.getElementsByTagName("div");
 			for( var num=0;num<arr.length;num++){
 				if(arr[num].id=="pool_ajload"){
-					arr[num].style.display = "none"; 
+					arr[num].style.display = "none";
 				}
 			}
 		}
@@ -232,10 +232,12 @@ function poolajimg(){
 function collection_initUserHeadPic(headUrl){
 	if(headUrl.indexOf("head") > 0){
 		//$("#imgid_collection_headPic").attr("background-image",headUrl);
-		$("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"') center center no-repeat;"); 
+		//kun $("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"') center center no-repeat;");
+		$("#imgid_collection_headPic").attr("style","background:url('"+headUrl+"');background-size:cover");
 		$("#imgid_user_pic").attr("src",headUrl);
 	}else{
-		$("#imgid_collection_headPic").attr("style","background:url('../images/profile-icon.png') center center no-repeat;background-size:100% 100%;"); 
+		//kun: deleted "center center no-repeat;" add: cover
+		$("#imgid_collection_headPic").attr("style","background:url('../images/profile-icon.png');background-size:cover");
 		$("#imgid_user_pic").attr("src","../images/profile-icon.png");
 	}
 }
@@ -254,7 +256,7 @@ function collection_initPoolNextPage(){
 				/* for(var i in pools){
 					html+="<div class=\"z1 fl\" id=\"divid_collection_pool_"+pools[i].id+"\">"+
 					"<div class=\"zz1\"><div id=\"zq1\"><img id=\"poolimg_"+pools[i].id+"\" class=\"imgclass_collection_works\""+
-					"src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\" /><div id=\"pool_m\" onclick=\"collection_checkworks('"+pools[i].id+"','"+fileServerUrl+pools[i].storeaddress.replace(".","ac.")+"','"+pools[i].title+"','"+pools[i].entrylabel+"','"+pools[i].description+"','"+fileServerUrl+pools[i].storeaddress+"')\"></div></div><span id=\"idspan_collection_poolTitle_"+pools[i].id+"\"> </span><span>"+pools[i].title+ 
+					"src=\""+fileServerUrl+pools[i].storeaddress.replace(".","tb.")+"\" /><div id=\"pool_m\" onclick=\"collection_checkworks('"+pools[i].id+"','"+fileServerUrl+pools[i].storeaddress.replace(".","ac.")+"','"+pools[i].title+"','"+pools[i].entrylabel+"','"+pools[i].description+"','"+fileServerUrl+pools[i].storeaddress+"')\"></div></div><span id=\"idspan_collection_poolTitle_"+pools[i].id+"\"> </span><span>"+pools[i].title+
 					"<a href=\"javascript:void(0)\"><img src=\"../images/lajitong.png\" class=\"imgclass_collection_lajitong\"><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delPoolById("+pools[i].id+")\">Delete</button></div></a></span></div></div>";
 				}
 				*/
@@ -265,7 +267,7 @@ function collection_initPoolNextPage(){
 					"<div class=\"loader-inner line-spin-fade-loader\" id=\"pool_ajload\"><div style=\"background:#e9e9e9;\"></div><div style=\"background:#e9e9e9;\"></div>"+
 					"<div style=\"background:#e9e9e9;\"></div><div style=\"background:#e9e9e9;\"></div><div style=\"background:#e9e9e9;\"></div>"+
 					"<div style=\"background:#e9e9e9;\"></div><div style=\"background:#e9e9e9;\"></div><div style=\"background:#e9e9e9;\"></div></div> "+
-					"</div><span id=\"idspan_collection_poolTitle_"+pools[i].id+"\"> </span><span><span class=\"coll_ajspan_title\">"+pools[i].title+ 
+					"</div><span id=\"idspan_collection_poolTitle_"+pools[i].id+"\"> </span><span><span class=\"coll_ajspan_title\">"+pools[i].title+
 					"</span><a href=\"javascript:void(0)\"><img src=\"../images/lajitong.png\" class=\"imgclass_collection_lajitong\"><div class=\"divclass_collection_cjn\"><button class=\"buttonclass_collection_delButton\" onclick=\"collection_delPoolById("+pools[i].id+")\">Delete</button></div></a></span></div></div>";
 				}
 				//$("#divid_collection_waitpic").hide();
@@ -282,7 +284,7 @@ function collection_initPoolNextPage(){
 			  /*   var arr = document.getElementsByTagName("div");
 				for( var num=0;num<arr.length;num++){
 					if(arr[num].id=="pool_ajload"){
-						arr[num].style.display = "none"; 
+						arr[num].style.display = "none";
 					}
 				} */
 			}else{
@@ -355,7 +357,7 @@ function collection_checkPoolAndCollection(checked){
 		$("#index_setup_m").fadeOut(300);
 		$("#index_setup").fadeOut(300);
 	}
-	
+
 	//点击键盘Esc按钮关闭弹框
 	$(document).keyup(function(event){
 		 switch(event.keyCode) {
@@ -380,10 +382,10 @@ function collection_checkPoolAndCollection(checked){
 				$("#index_setup_m").fadeOut(300);
 				$("#index_setup").fadeOut(300);
 		 }
-	});	
-	
-	
-	
+	});
+
+
+
 	//显示固定导航栏
 	$(window).scroll(function (){
 		var st = $(this).scrollTop();
@@ -403,7 +405,7 @@ function collection_checkPoolAndCollection(checked){
 		//打印日志
 		//console.log(st);
 	});
-	
+
 	//切换固定导航栏
 	function collection_checknavigation(checked){
 		if(checked=="pool"){
@@ -416,8 +418,8 @@ function collection_checkPoolAndCollection(checked){
 			sb.click();
 		}
 	}
-	
-	
+
+
 	//作品和collection动态居中
 	function adaptivepoll(){
 		var winWidth = 0; //浏览器的宽度
@@ -426,7 +428,7 @@ function collection_checkPoolAndCollection(checked){
 		if (window.innerWidth){
 			winWidth = window.innerWidth;
 		}else if((document.body) && (document.body.clientWidth)){
-			winWidth = document.body.clientWidth; 
+			winWidth = document.body.clientWidth;
 		}
 		for(var i=1;i<20;i++){
 			w=wdth*i;
@@ -446,11 +448,11 @@ function collection_checkPoolAndCollection(checked){
 			}
 		}
 	}
-	adaptivepoll(); 
-	//调用函数，获取数值 
+	adaptivepoll();
+	//调用函数，获取数值
 	window.onresize=adaptivepoll;
- 
-	
+
+
 </script>
 
 </head>
@@ -473,9 +475,9 @@ function collection_checkPoolAndCollection(checked){
 
 <div id="test" class="dropzone">
 <div class="collection_header">
-<a href="http://tekuma.io/" class="collection_logo_c"><img id="collection_logo"  src="../images/jgugj_03.jpg" alt="" /></a> 
+<a href="http://tekuma.io/" class="collection_logo_c"><img id="collection_logo"  src="../images/jgugj_03.jpg" alt="" /></a>
 <a class="collection_startup"><img src="../images/04_add-artworks-into-your-pool_05.jpg" alt="" id="imgid_collection_setup"/></a>
-<a class="collection_user_p"><img src="../images/04_add-artworks-into-your-pool_07.jpg" alt="" id="imgid_collection_head"/></a> 
+<a class="collection_user_p"><img src="../images/04_add-artworks-into-your-pool_07.jpg" alt="" id="imgid_collection_head"/></a>
 </div>
 <div class="collection_user" id="imgid_collection_headPic">
 <!-- <img src="" id="imgid_collection_headPic"/> -->
@@ -519,14 +521,14 @@ src="<s:property value="#works.thumbnailurl"/>"/>
 	<div style="background:#e9e9e9;"></div>
 	<div style="background:#e9e9e9;"></div>
 	<div style="background:#e9e9e9;"></div>
-</div>          
+</div>
 <script type="text/javascript">
 //图片加载出来关闭滚动图
 poolimg_${works.id}.onload = function() {
 	document.getElementById("pool_load_"+${works.id}).style.display="none";
 }
 setTimeout(function(){document.getElementById("pool_load_"+${works.id}).style.display="none";},2000);
-</script>                                                                 
+</script>
 </div>
 <span id="idspan_collection_poolTitle_<s:property value="#works.id" />" class="coll_span_title"><s:property value="#works.title" /></span>
 <span id="idspan_collection_poolTitl_<s:property value="#works.id"/>">
@@ -602,10 +604,10 @@ $(".dropzone").dropzone({
     			"<progress id=\"collection_uploadwork_progress_"+timestamp+"\" style=\"border-radius:5px;\" max=\"100\" value=\"0\"><ie style=\"width:20%;\"></ie></progress><img src=\"../images/lajitong.png\" alt=\"\" id=\"ljt_"+timestamp+"\"/></a></span></div></div>";
     			$("#pool_add").after(html);
             });
-            this.on("addedfile", function (file) {  
-            	
-            }); 
-            this.on("uploadprogress", function (q,w,e) {  
+            this.on("addedfile", function (file) {
+
+            });
+            this.on("uploadprogress", function (q,w,e) {
             	$("#collection_uploadwork_progress_"+collection_uploadWork_timestamp[0]).width(w);
             });
             this.on("canceled",function(){
@@ -618,7 +620,7 @@ $(".dropzone").dropzone({
             	$("#collection_tuozhuai_mengban").show();
             	$("#collection_tuozhuai_mengban").delay(300).hide(0);
             });  */
-            
+
             //文件拖动到降落区
             this.on("dragover", function(file) {
             /* 	$("#collection_tuozhuai_mengban").show(function(){
@@ -630,17 +632,17 @@ $(".dropzone").dropzone({
             	$("body").mouseover(function(){
         			$("#collection_tuozhuai_mengban").fadeOut(100);
         		});
-            });            
-            
+            });
+
           	//文件从降落区脱离
            /* 	this.on("dragleave", function(file) {
             	$("collection_tuozhuai_mengban").mouseout(function(){
         			$("#collection_tuozhuai_mengban").hide();
         		});
             });   */
-            
+
         }
-    }); 
+    });
 </script>
 
 </div>
@@ -651,7 +653,8 @@ $(".dropzone").dropzone({
 <div class="clear1" id="img_clear1" style="text-align: center;"></div>
 <!--小蝴蝶-->
 <div class="collection_contact">
-<span>contact us: <a href="javascript:void(0)">hello@tekuma.io</a></span>
+<span>contact us: <a href="mailto:hello@tekuma.io">hello@tekuma.io</a></span>
+<!--kun-->
 </div>
 <!--收藏夹修改-->
 <div class="bj2" id="divid_collection_bj1"></div>
@@ -668,7 +671,7 @@ $(".dropzone").dropzone({
 <div class="errormsg"></div>
 <a href="javascript:void(0)" id="close1"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="creat_information_h1">Collection Description</h1>
-<input type="text" placeholder="Collection Title" id="inputid_collection_cname" class="collection_update_warning" value=" "/> 
+<input type="text" placeholder="Collection Title" id="inputid_collection_cname" class="collection_update_warning" value=" "/>
 <!-- <input type="text" placeholder="Number of Prints" id="inputid_collection_cLimitNum" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="collection_update_warning" value=" "/> -->
 <%-- <select id="inputid_Upload_ptime">==Upload time==
 <option value="2015">2015</option>
@@ -692,7 +695,7 @@ $(".dropzone").dropzone({
 	<div id="inputid_collection_tags2_con"></div>
 	<input type="text" onfocus="if(this.value=='Tag')this.value=''" value="Tag" onkeyup="this.value=this.value.replace(' ','')" id="wer2" onclick="collection_spaceclick2()"/>
 	<div id="input_tagg_idnumber2" style="display: none;"></div>
-</div> 
+</div>
 
 <select id="inputid_collection_categoriesfq" class="collection_update_warning collection_update_warning1">
 <option value="">All Media</option>
@@ -843,8 +846,8 @@ $(".dropzone").dropzone({
 <div class="left_box fl" id="left_box">
 
 <!-- 加载等待图 -->
-<div class="containloader" align="center" id="bgasdasdasd"> 
-	<div class="zgroup"> 
+<div class="containloader" align="center" id="bgasdasdasd">
+	<div class="zgroup">
 	  <div class="bigSqr">
 	    <div class="square first"></div>
 	    <div class="square second"></div>
@@ -872,17 +875,29 @@ inputid_collection_pimg.onload = function() {
 <div class="errormsg"></div>
 <a href="javascript:void(0)" id="pool_close" onclick="collection_closeWorksBox()"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="creat_information_h1">Work Information</h1>
-<input type="text" placeholder="Pool Name" id="inputid_collection_pname" class="pool_add_warning" value=" "/>
+<input type="text" placeholder="Title" id="inputid_collection_pname" class="pool_add_warning" value=" "/>
 <!-- <input type="text" placeholder="label" id="inputid_collection_ptime"  class="pool_add_warning" value=" "/> -->
 <select id="inputid_Upload_ptime"  class="pool_add_warning">==Create time==
 <option value="2015">2015</option>
 <option value="2014">2014</option>
 <option value="2013">2013</option>
 <option value="2012">2012</option>
-<option value="other">other</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+<option value="2009">2009</option>
+<option value="2008">2008</option>
+<option value="2007">2007</option>
+<option value="2006">2006</option>
+<option value="2005">2005</option>
+<option value="2005">2004</option>
+<option value="2005">2003</option>
+<option value="2005">2002</option>
+<option value="2005">2001</option>
+<option value="2005">2000</option>
+<option value="other">before 2000</option>
 </select>
 <!-- 作品id -->
-<input type="text"  id="inputid_collection_worksid" style="display:none"/>	
+<input type="text"  id="inputid_collection_worksid" style="display:none"/>
 
 <textarea placeholder="Project Description(maximum 500 characters)" id="inputid_collection_pdesc"  class="pool_add_warning"></textarea>
 <a href="javascript:void(0)" id="collection_saveyourpool" onclick="collection_comitWorks()">Save</a>
@@ -912,7 +927,7 @@ inputid_collection_pimg.onload = function() {
 
 <!-- 关键词 -->
 <div id="inputid_collection_tags">
-	<div id="inputid_collection_tags_con"></div>	
+	<div id="inputid_collection_tags_con"></div>
 	<div id="input_tagg_idnumber" style="display: none;"></div>
 	<input type="text" onfocus="if(this.value=='Tag')this.value=''" value="Tag" onkeyup="this.value=this.value.replace(' ','')" id="wer" onclick="collection_spaceclick()"/>
 </div>
@@ -957,7 +972,7 @@ inputid_collection_pimg.onload = function() {
 <option value="Surrealism">Surrealism</option>
 <option value="other">other</option>
 </select>
-<textarea placeholder="Work description" id="nine_picture_textarea"></textarea>
+<textarea placeholder="Collection Description" id="nine_picture_textarea"></textarea>
 <input type="hidden" id="collection_inputid_collevtionid" placeholder="收藏夹id"/>
 <a href="javascript:void(0)" id="acla_collection_select" onclick="collection_select_view()">Select</a>
 <a href="javascript:void(0)" id="happy" onclick="collection_addCollectionSubmit()">Save</a>
@@ -982,7 +997,7 @@ inputid_collection_pimg.onload = function() {
 <div class="errormsg"></div>
 <a href="javascript:void(0)" id="collection2_close"><img src="../images/wire-framing_03.png" alt="" /></a>
 <h1 class="collection2_h1">Collection Information</h1>
-<input type="text" placeholder="Pool Name" id="inputid_collectionpool_pname" class="pool_add_warning"/>
+<input type="text" placeholder="Title" id="inputid_collectionpool_pname" class="pool_add_warning"/>
 <!-- <input type="text" placeholder="label" id="inputid_collectionpool_plabel" class="pool_add_warning"/> -->
 <!-- <input type="text" placeholder="Create time" id="collectionpool_inputid_Upload_ptime" class="collection_add_warning"/> -->
 <select id="collectionpool_inputid_Upload_ptime"  class="collection_add_warning">==Create time==
@@ -992,8 +1007,8 @@ inputid_collection_pimg.onload = function() {
 <option value="2012">2012</option>
 <option value="other">other</option>
 </select>
-<input type="text"  id="inputid_collection_worksidec" style="display: none;" value=""/>	
-<input type="text"  id="inputid_collection_coolid" style="display: none;" value=""/>	
+<input type="text"  id="inputid_collection_worksidec" style="display: none;" value=""/>
+<input type="text"  id="inputid_collection_coolid" style="display: none;" value=""/>
 <textarea placeholder="Project Description" id="inputid_collection_pdesc" class="pool2_add_warning"></textarea>
 <a href="#" id="collsecondary_save" onclick="collection_poolcomitWorks()">Save</a>
 <!-- 下载链接 -->
@@ -1029,9 +1044,9 @@ inputid_collection_pimg.onload = function() {
 <input type="file" value="Change your picture" id="index_user_picchange" />
 <a href="#" id="index_user_picchange_none" onclick="index_user_picchange.click()">change your picture</a>
 <div class="clear1"></div>
-<input type="text" placeholder="Where are you live ?" id="index_user_Year_Location" value="${member.location }"/>
+<input type="text" placeholder="Where are you live?" id="index_user_Year_Location" value="${member.location }"/>
 <%-- <input type="text" placeholder="Storage address" id="index_user_Website" value="${member.website }"/> --%>
-<textarea placeholder="Work description" id="index_user_textarea" value="${member.bio }"></textarea>
+<textarea placeholder="Your short bio" id="index_user_textarea" value="${member.bio }"></textarea>
 <a href="#" id="index_user_save" onclick="user_updateInfo()">Save</a>
 </div>
 </div>
@@ -1049,15 +1064,15 @@ inputid_collection_pimg.onload = function() {
 <input type="password" placeholder="Old Password" id="index_setup_Old_passeord" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
 <input type="password" placeholder="New Password" id="index_setup_New_passeord" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
 <input type="password" placeholder="New Password" id="index_setup_New_passeord2" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
-<input type="button" value="Change it" id="index_setup_change_it" onclick="set_updateUserPwd()"/>
+<input type="button" value="Change" id="index_setup_change_it" onclick="set_updateUserPwd()"/>
 </div>
 <div class="clear1"></div>
 <div class="index_setup_pay">
 <span class="index_setup_annotation">
-<p>annotation:</p>To receice earings form your artworks,enter yourpayment information here.We current do transactions through Alipay and PayPal.
+To receice earings form your artworks, enter your payment information here. We current do transactions through PayPal.
 </span>
 <div class="clear"></div>
-<a href="#" id="index_setup_zhifubao">Alipay</a>
+<!--<a href="#" id="index_setup_zhifubao">Alipay</a>-->
 <a href="#" id="index_setup_paypal">PayPal</a>
 </div>
 
@@ -1068,11 +1083,11 @@ inputid_collection_pimg.onload = function() {
 </div>
 
 <!-- 加载等待 -->
-<div id="divid_collection_initwait" >  
+<div id="divid_collection_initwait" >
 <div class="collection_footer_img" id="divid_collection_waitpic" style="display:none">
 <img src="../images/jz.gif" alt="" />
 </div>
-</div> 
+</div>
 
 <!-- 页码 -->
 <input style="display:none" value="1" id="inputid_collection_page"/>
