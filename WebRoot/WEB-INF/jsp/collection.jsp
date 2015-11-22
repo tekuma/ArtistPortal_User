@@ -1044,9 +1044,9 @@ inputid_collection_pimg.onload = function() {
 <input type="file" value="Change your picture" id="index_user_picchange" />
 <a href="#" id="index_user_picchange_none" onclick="index_user_picchange.click()">change your picture</a>
 <div class="clear1"></div>
-<input type="text" placeholder="Where are you live?" id="index_user_Year_Location" value="${member.location }"/>
+<input type="text" placeholder="Where do you live?" id="index_user_Year_Location" value="${member.location }"/>
 <%-- <input type="text" placeholder="Storage address" id="index_user_Website" value="${member.website }"/> --%>
-<textarea placeholder="Your short bio" id="index_user_textarea" value="${member.bio }"></textarea>
+<textarea placeholder="Write a few words about yourself" id="index_user_textarea" value="${member.bio }"></textarea>
 <a href="#" id="index_user_save" onclick="user_updateInfo()">Save</a>
 </div>
 </div>
@@ -1063,13 +1063,13 @@ inputid_collection_pimg.onload = function() {
 <div id="index_setup_password">
 <input type="password" placeholder="Old Password" id="index_setup_Old_passeord" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
 <input type="password" placeholder="New Password" id="index_setup_New_passeord" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
-<input type="password" placeholder="New Password" id="index_setup_New_passeord2" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
+<input type="password" placeholder="Confirm New Password" id="index_setup_New_passeord2" onKeyUp="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" class="setup_form_warning"/>
 <input type="button" value="Change" id="index_setup_change_it" onclick="set_updateUserPwd()"/>
 </div>
 <div class="clear1"></div>
 <div class="index_setup_pay">
 <span class="index_setup_annotation">
-To receice earings form your artworks, enter your payment information here. We current do transactions through PayPal.
+To receive earings from your artworks, enter your payment information here. We currently do transactions through PayPal.
 </span>
 <div class="clear"></div>
 <!--<a href="#" id="index_setup_zhifubao">Alipay</a>-->

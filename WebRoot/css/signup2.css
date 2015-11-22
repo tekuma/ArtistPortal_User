@@ -28,5 +28,5 @@ input{float:left;width:225px;height:27px;margin:0 auto;border-radius:5px;border:
 .signup2_or font{float:left;width:4px;height:4px;border-radius:2px;background:#ccc;margin-left:12px;margin-top:1px;}
 .sign2_firstname{ width:100px; height:27px; float:left;}
 .sign2_lastname{ width:100px; height:27px; float:right;}
-.sign2_t{ margin:0 auto;display:block; width:205px; height:32px;text-align:center; color:#a9a9a9; margin-top:5px;}
+.sign2_t{ margin:0 auto;display:block; width:205px; height:32px;text-align:center; color:#a9a9a9; margin-top:15px; line-height:1.5;}
 .sign2_t a{ color:#a9a9a9;}
