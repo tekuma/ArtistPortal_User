@@ -54,7 +54,7 @@ function login_faceBookLogin(){
 	var email;
 	var passward;
 	$.ajax({
-		url:"http://"+window.location.host+"/TekumaUserServer/system/system_getCookes.do",
+		url:"system/system_getCookes.do",
 		type:"post", async: false,
 		success:function(data){
 			email=data.split(":")[0]; 
@@ -63,7 +63,7 @@ function login_faceBookLogin(){
 	});
 	if(email!=undefined&&email!=""&&passward!=undefined&&passward!=""){
 		$.ajax({
-			url:"http://"+window.location.host+"/TekumaUserServer/system/system_memberLogin.do",
+			url:"system/system_memberLogin.do",
 			data:{"member.loginname":email,"member.loginpwd":passward},
 			type:"post",
 			success:function(isSuccess){

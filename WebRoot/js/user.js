@@ -9,16 +9,15 @@ function user_updateInfo(){
 	}else if(last_name==undefined||last_name==""){
 		public_err_prompt("Name can not be empty",$("#index_user_last_Name"));
 	}else if(first_name.length>64){
-		public_err_prompt("First name Can't be more than 64 characters",$("#index_user_First_Name"));
+		public_err_prompt("First name Can't be better than 64 characters",$("#index_user_First_Name"));
 	}else if(last_name.length>64){
-		public_err_prompt("Last name Can't be more than 64 characters",$("#index_user_last_Name"));
+		public_err_prompt("Last name Can't be better than 64 characters",$("#index_user_last_Name"));
 	}else if(location.length>50){
-		public_err_prompt("Location Can't be more than 50 characters",$("#index_user_Year_Location"));
+		public_err_prompt("Location Can't be better than 50 characters",$("#index_user_Year_Location"));
 	}/*else if(website.length>100){
 		public_err_prompt("Website Can't be better than 100 characters",$("#index_user_Website"));
-	}*/else if(bio.length>600){
-		public_err_prompt("Bio Can't be better than 600 characters",$("#index_user_textarea"));
-		/* kun */
+	}*/else if(bio.length>100){
+		public_err_prompt("Bio Can't be better than 100 characters",$("#index_user_textarea"));
 	}else{
 		$.ajax({
 			url:"system/system_updateUserInfo.do",
@@ -27,13 +26,14 @@ function user_updateInfo(){
 				"headImg":$("#imgid_user_pic").attr("src")},
 			type:"post",
 			success:function(member){
-				if(member.isSuccess=="1"){
+				if(member.isSuccess=="fail"){
 					public_err_prompt("Save avatar failure",$(""));
 				}else{
 					collection_initUserHeadPic(fileServerUrl+member.avatarpath);
 					$("#divid_collection_username").html(member.firstname+" "+member.lastname);
 				}
 				$("#index_user").slideUp(300);//关闭弹框
+				window.location.reload();
 			}
 		});
 	}
@@ -41,11 +41,11 @@ function user_updateInfo(){
 
 
 function Imageinitialization(){
-	$.imageFileVisible({wrapSelector: "#index_user_picture",
+	$.imageFileVisible({wrapSelector: "#index_user_picture",   
 		fileSelector: "#index_user_picchange",
 		id:"imgid_user_pic"
 	},function(){});
-
+	
 	$(".userinfo_form_warning").click(function(){
 		$(".userinfo_form_warning").css("border","solid 1px #929597");
 	});

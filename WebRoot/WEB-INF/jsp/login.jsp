@@ -157,27 +157,17 @@ $(function(){
 	});	
 	
 	
-	//读取cookies
-	function getCookie(name)
-	{
-	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-	    if(arr=document.cookie.match(reg))
-	        return (arr[2]);
-	    else
-	        return null;
-	}
 	//点击注册-清除cookie
 	function signup(name)
-	{
-	    var exp = new Date();
-	    exp.setTime(exp.getTime() - 1);
-	    var cval=getCookie(name);
-	    if(cval!=null){
-	    	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-	    }
-	    window.location.href='http://127.0.0.1:8080/TekumaUserServer/';
+	{ 
+		$.ajax({
+			url:"system/system_DelCookes.do",
+			type:"post", async: false,
+			success:function(data){
+			}
+		});
+		window.location.href='http://127.0.0.1:8080/ArtistPortal_User';
 	}
-	
 	
 
 </script>

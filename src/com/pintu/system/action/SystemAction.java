@@ -54,9 +54,20 @@ import com.pintu.system.entity.Collection;
 import com.pintu.system.entity.Member;
 import com.pintu.system.entity.Pool;
 import com.pintu.system.service.SystemService;
-import com.sun.image.codec.jpeg.JPEGCodec;
+
+/*import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;*/
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.ImageOutputStream;
+ 
+import com.sun.imageio.plugins.jpeg.*;
+
 
 @SuppressWarnings({ "unused", "unchecked", "serial" })
 @Scope("prototype")
@@ -428,11 +439,45 @@ public class SystemAction extends BaseAction {
         File destFile = new File(file);  
         FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流  
         // 可以正常实现bmp、png、gif转jpg  
-        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
-        encoder.encode(image); // JPEG编码  
+        //JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
+        //encoder.encode(image); // JPEG编码  
         out.close();  
     }  
 	
+    
+    
+    
+    public static void saveAsJPEG(Integer dpi, BufferedImage image_to_save,
+            float JPEGcompression, FileOutputStream fos) throws IOException {
+        JPEGImageWriter imageWriter = (JPEGImageWriter) ImageIO
+                .getImageWritersBySuffix("jpg").next();
+        ImageOutputStream ios = ImageIO.createImageOutputStream(fos);
+        imageWriter.setOutput(ios);
+        // and metadata
+        IIOMetadata imageMetaData = imageWriter.getDefaultImageMetadata(
+                new ImageTypeSpecifier(image_to_save), null);
+ 
+        if (JPEGcompression >= 0 && JPEGcompression <= 1f) {
+            JPEGImageWriteParam jpegParams = (JPEGImageWriteParam) imageWriter
+                    .getDefaultWriteParam();
+            jpegParams.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
+            jpegParams.setCompressionQuality(JPEGcompression);
+ 
+        }
+ 
+        imageWriter.write(imageMetaData,
+                new IIOImage(image_to_save, null, null), null);
+        ios.close();
+        imageWriter.dispose();
+ 
+    }
+    
+    
+    
+    
+    
+    
+    
 	/**
 	 * 上传用户头像
 	 */
@@ -607,6 +652,7 @@ public class SystemAction extends BaseAction {
 				//用户名密码保存到cookie一年
 				Cookie cookieuser = new Cookie("user",member.getLoginname()+"-"+member.getLoginpwd()); 
 				cookieuser.setMaxAge(365 * 24 * 60 * 60); 
+				cookieuser.setPath("/");
 				response.addCookie(cookieuser); 
 
 			}else{
@@ -728,19 +774,18 @@ public class SystemAction extends BaseAction {
 		String img=this.request.getParameter("headImg");
 		Member sessionMember=(Member)this.request.getSession().getAttribute("member");
 		String avatarPath="";
+		String Sql="select avatarpath from tk_member_t where ID="+sessionMember.getId();
+		String txlj=this.systemService.getPublicJdbcDao().getTempStr(Sql, null);
 		if(img.indexOf("http://")==-1){
 			try {
-				String Sql="select avatarpath from tk_member_t where ID="+sessionMember.getId();
-				String txlj=this.systemService.getPublicJdbcDao().getTempStr(Sql, null);
 				String filePath=LOCALFILEURL+txlj;
 				new File(filePath).delete();
-				
 				avatarPath=saveHeadPic(img,sessionMember.getId()).get("serverUrl");
 			} catch (IOException e) {
-				member.setIsSuccess("1");
+				member.setIsSuccess("fail");
 			}
 		}else{
-			avatarPath=sessionMember.getAvatarpath();
+			avatarPath=txlj;
 		}
 		member.setAvatarpath(avatarPath);
 		String sql="update tk_member_t set firstName='"+member.getFirstname()+"', lastName='"+member.getLastname()+
@@ -908,11 +953,20 @@ public class SystemAction extends BaseAction {
 					data+=cookies[i].getValue().split("-")[1]; 
 				}
 			}
-		}
+		} 
 		this.entityReturnJson(data);
 	}
 	
-	
+	/**
+	 * 清除cookie
+	 * @return
+	 */
+	public void DelCookes(){
+		Cookie cookieuser = new Cookie("user",null); 
+		cookieuser.setMaxAge(0); 
+		cookieuser.setPath("/");
+		response.addCookie(cookieuser); 
+	}
 	
 	
 	
@@ -988,11 +1042,14 @@ public class SystemAction extends BaseAction {
             try {  
                 /*输出到文件流*/  
                 FileOutputStream newimage = new FileOutputStream(fileFullPath);  
-                JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(newimage);  
-                JPEGEncodeParam jep = JPEGCodec.getDefaultJPEGEncodeParam(im);  
+               //  JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(newimage);  
+               // JPEGEncodeParam jep = JPEGCodec.getDefaultJPEGEncodeParam(im);  
                 /* 压缩质量 */  
-                jep.setQuality(0.9f, true);  
-                encoder.encode(im, jep);  
+               // jep.setQuality(0.9f, true);  
+               // encoder.encode(im, jep);  
+                
+                saveAsJPEG(300, im, 0.9f, newimage);
+                
                /*近JPEG编码*/  
                 newimage.close();  
                 return true;  
@@ -1009,20 +1066,6 @@ public class SystemAction extends BaseAction {
 	 * @return
 	 */
 	public String goLogin(){
-		
-		String name = ""; //用户名
-		String passward = ""; //密码
-		Cookie cookies[] = request.getCookies();
-		if(cookies != null){
-			for(int i=0;i<cookies.length;i++){
-				if(cookies[i].getName().equals("user")){  
-					name=cookies[i].getValue().split("-")[0]; 
-					passward=cookies[i].getValue().split("-")[1]; 
-					request.setAttribute("name",name);  //存用户名
-					request.setAttribute("pass",passward); //存密码
-				}
-			}
-		}
 		return "login";
 	}
 

@@ -1072,9 +1072,12 @@ inputid_collection_pimg.onload = function() {
 To receive earings from your artworks, enter your payment information here. We currently do transactions through PayPal.
 </span>
 <div class="clear"></div>
-<!--<a href="#" id="index_setup_zhifubao">Alipay</a>-->
-<a href="#" id="index_setup_paypal">PayPal</a>
+<!--<a href="#" id="index_setup_zhifubao">Alipay</a>
+<a href="#" id="index_setup_paypal">PayPal</a>-->
+
 </div>
+<input type="text" id="index_setup_zhifubao" placeholder="Please enter your PayPal account">
+
 
 <a href="#" id="index_setup_save">Save</a>
 <a href="#" id="index_setup_logout" onclick="window.location.href='system_goLogin.do'">Log out</a>
