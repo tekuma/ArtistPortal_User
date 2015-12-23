@@ -30,83 +30,13 @@ public class Member extends BaseEntity {
 	private String isSuccess;
 	private String fbid;
 	
-	public String getFbid() {
-		return fbid;
-	}
-	public void setFbid(String fbid) {
-		this.fbid = fbid;
-	}
-	public String getIsSuccess() {
-		return isSuccess;
-	}
-	public void setIsSuccess(String isSuccess) {
-		this.isSuccess = isSuccess;
-	}
-	public String getBio() {
-		return bio;
-	}
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
-	public String getWebsite() {
-		return website;
-	}
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-	public Integer getGender() {
-		return gender;
-	}
-	public void setGender(Integer gender) {
-		this.gender = gender;
-	}
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getTelephone() {
-		return telephone;
-	}
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-	public String getIntroduction() {
-		return introduction;
-	}
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
-	public Date getCreatetime() {
-		return createtime;
-	}
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-	
-	public String getBank() {
-		return bank;
-	}
-	public void setBank(String bank) {
-		this.bank = bank;
-	}
-	
 	public String getLoginname() {
 		return loginname;
 	}
@@ -131,17 +61,53 @@ public class Member extends BaseEntity {
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+	public Date getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getAvatarpath() {
 		return avatarpath;
 	}
 	public void setAvatarpath(String avatarpath) {
 		this.avatarpath = avatarpath;
 	}
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 	public String getMembertype() {
 		return membertype;
 	}
 	public void setMembertype(String membertype) {
 		this.membertype = membertype;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
 	}
 	public String getBankaccount() {
 		return bankaccount;
@@ -167,6 +133,41 @@ public class Member extends BaseEntity {
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
+	public String getBio() {
+		return bio;
+	}
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+	public String getWebsite() {
+		return website;
+	}
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	public Integer getGender() {
+		return gender;
+	}
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+	public String getIsSuccess() {
+		return isSuccess;
+	}
+	public void setIsSuccess(String isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	public String getFbid() {
+		return fbid;
+	}
+	public void setFbid(String fbid) {
+		this.fbid = fbid;
+	}
+	
+	
+	
+	
+	
 	
 
 }

@@ -119,6 +119,8 @@ function collection_clearCollection(){
 
 //添加收藏/点击收藏夹(无选中收藏夹)
 function collection_openAddCollection(){
+	var categories=$("#inputid_collection_categoriesfq").val("All Media");
+	var styles=$("#inputid_collection_stylesfq").val("All Styles");
 	collection_input_coollable=[];
 	for( var num=0;num<6;num++){
 		var obj = document.getElementById("inputid_collection2_taglable"+num);
@@ -276,6 +278,7 @@ function collection_saveCollectionSubmit(){
 				$(".bj2").fadeOut(300);
 				collection_iniCollection();
 				collection_input_coollable=[];
+				collection_iniCollection();
 			}
 		});
 	}

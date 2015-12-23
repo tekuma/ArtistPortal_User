@@ -6,7 +6,7 @@ ul,ol{ list-style:none;}
 a{text-decoration:underline;color:#000000;}
 a:hover{ color:#df611e;color:#000000;}
 img{ border:none}
-input:focus{ outline:none}
+input:focus{ outline:none} 
 .fl{ float:left}
 .fr{ float:right}
 .rel{ position:relative}
@@ -17,10 +17,10 @@ input:focus{ outline:none}
 .signup2_header{ margin-left:83px;}
 input{float:left;width:225px;height:27px;margin:0 auto;border-radius:5px;border:solid 1px #ccc;margin-bottom:15px;padding-left:8px;}
 .signup2_input{width:235px;height:300px;margin:0 auto;display:none;position:relative;}
-.signup2_signup{display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;margin-top:15px;}
-.signup2_signup:hover{background:#ec008b;color:#FFFFFF;border:solid 1px #ec008b;}
-.signup2_signup2{cursor:pointer; display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;}
-.signup2_signup2:hover{background:#ec008b;color:#FFFFFF;border:solid 1px #ec008b;}
+.signup2_signup{display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;margin-top:15px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
+.signup2_signup:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
+.signup2_signup2{cursor:pointer; display:block;font-size:1.2em;width:148px;height:23px;margin:0 auto;text-decoration:none;border:#000 solid 1px;border-radius:5px;text-align:center;line-height:23px;transition:all 1s ease-out;-webkit-transition: -webkit-box-shadow 0.5s ease-out;-moz-transition: -moz-box-shadow 0.5s ease-out;-o-transition: box-shadow 0.5s ease-out;}
+.signup2_signup2:hover{background:#ec008b;color:#FFFFFF;-moz-box-shadow: 0px 0px 10px #ec008b;-webkit-box-shadow: 0px 0px 10px #ec008b;box-shadow: 0px 0px 10px #ec008b;border:solid 1px #fff;}
 .signup2_footer{width:100%; height:52px; background:url(../images/01_landing-page_10.jpg) repeat-x; position:absolute; bottom:0; line-height:52px;}
 .signup2_footer span{padding-right:83px;}
 .signup2_or{width:230px;height:7px;margin:0 auto;margin-top:25px;margin-bottom:25px;}
@@ -28,5 +28,10 @@ input{float:left;width:225px;height:27px;margin:0 auto;border-radius:5px;border:
 .signup2_or font{float:left;width:4px;height:4px;border-radius:2px;background:#ccc;margin-left:12px;margin-top:1px;}
 .sign2_firstname{ width:100px; height:27px; float:left;}
 .sign2_lastname{ width:100px; height:27px; float:right;}
-.sign2_t{ margin:0 auto;display:block; width:205px; height:32px;text-align:center; color:#a9a9a9; margin-top:15px; line-height:1.5;}
+.sign2_t{ margin:0 auto;display:block; width:205px; height:32px;text-align:center; color:#a9a9a9; margin-top:5px;}
 .sign2_t a{ color:#a9a9a9;}
+
+
+
+
+

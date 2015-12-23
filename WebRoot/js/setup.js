@@ -1,3 +1,4 @@
+//修改密码
 function set_updateUserPwd(){
 	var login_pwd=$("#index_setup_Old_passeord").val();
 	var login_newPwd=$("#index_setup_New_passeord").val();
@@ -28,8 +29,33 @@ function set_updateUserPwd(){
 	}
 }
 
+//密码框点击改变样式
 $(function(){
 	$(".setup_form_warning").click(function(){
 		$(".setup_form_warning").css("border","solid 1px #929597");
 	});
 })
+
+
+//保存支付宝信息
+function addAccount(){
+	var account=$("#index_setup_zhifubao").val();
+	if(account==undefined||account==""){
+		public_err_prompt("account can not be empty.",$("#index_setup_save"));
+	}else{
+		$.ajax({
+			url:"system/system_saveAccount.do",
+			data:{"account":account},
+			type:"post",
+			success:function(data){
+				if(data==false){
+					public_err_prompt("Account already exists.",$("#index_setup_save"));
+				}else{
+					$("#index_setup").slideUp(300);
+					$("#index_setup_zhifubao").val(account);
+				}
+			}
+		});
+	}
+}
+

@@ -166,8 +166,9 @@ $(function(){
 			success:function(data){
 			}
 		});
-		window.location.href='http://127.0.0.1:8080/ArtistPortal_User';
+		window.location.href='http://52.1.199.42';
 	}
+	
 	
 
 </script>

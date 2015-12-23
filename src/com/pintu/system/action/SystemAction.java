@@ -59,6 +59,7 @@ import com.pintu.system.service.SystemService;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;*/
 
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageTypeSpecifier;
@@ -66,6 +67,7 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
  
+
 import com.sun.imageio.plugins.jpeg.*;
 
 
@@ -86,7 +88,7 @@ public class SystemAction extends BaseAction {
 	private String urlContentType;
 	
 	private Code codedate;//邀请码
-	
+
 	public Code getCodedate() {
 		return codedate;
 	}
@@ -771,7 +773,7 @@ public class SystemAction extends BaseAction {
 	 * 完善用户信息
 	 */
 	public void updateUserInfo(){
-		String img=this.request.getParameter("headImg");
+		String img=this.request.getParameter("headimg");
 		Member sessionMember=(Member)this.request.getSession().getAttribute("member");
 		String avatarPath="";
 		String Sql="select avatarpath from tk_member_t where ID="+sessionMember.getId();
@@ -788,9 +790,16 @@ public class SystemAction extends BaseAction {
 			avatarPath=txlj;
 		}
 		member.setAvatarpath(avatarPath);
-		String sql="update tk_member_t set firstName='"+member.getFirstname()+"', lastName='"+member.getLastname()+
-				"',location='"+member.getLocation()+"',bio='"+member.getBio()+"',website='"+member.getWebsite()+
-				"',gender='"+member.getGender()+"' where id="+sessionMember.getId();
+		String sql;
+		if(member.getGender()!=null){
+			sql="update tk_member_t set firstName='"+member.getFirstname()+"', lastName='"+member.getLastname()+
+					"',location='"+member.getLocation()+"',bio='"+member.getBio()+
+					"',gender='"+member.getGender()+"' where id="+sessionMember.getId();
+		}else{
+			sql="update tk_member_t set firstName='"+member.getFirstname()+"', lastName='"+member.getLastname()+
+					"',location='"+member.getLocation()+"',bio='"+member.getBio()+
+					"' where id="+sessionMember.getId();
+		}
 		this.systemService.getPublicJdbcDao().executeSQL(sql);
 		this.entityReturnJson(member);
 	}
@@ -799,9 +808,9 @@ public class SystemAction extends BaseAction {
 	 * 查询文件服务器地址
 	 */
 	public void getServerFileUrl(){
-		String sql="select csz from sys_param_t where bh=1";
+		String sql="select csz from sys_param_t where bh=3";
 		List<String> list=this.systemService.getPublicJdbcDao().getList(sql);
-		String Sql="select csz from sys_param_t where bh=2";
+		String Sql="select csz from sys_param_t where bh=4";
 		List<String> listdz=this.systemService.getPublicJdbcDao().getList(Sql);
 		LOCALFILEURL=listdz.get(0);
 		this.strReturnJson(list.get(0));
@@ -872,9 +881,8 @@ public class SystemAction extends BaseAction {
     		 // 构造URL
     		String urlString=this.request.getParameter("urlString");
     		String filename=this.request.getParameter("filename");
-    		int index = filename.lastIndexOf("/")+1;
-    		//String left = filename.substring(0,index);
-    		String right = filename.substring(index);
+    		int index = filename.indexOf("/");
+    		String right = filename.substring(index+1);
     		/*String fname="E://tp/";
     		File name=new File(fname+left);
     		if(!name.exists()){
@@ -1112,6 +1120,19 @@ public class SystemAction extends BaseAction {
 			this.systemService.getPublicJdbcDao().executeSQL(sql);
 		}
 	}
+	
+	/**
+	 * 保持支付宝账号
+	 */
+	public void saveAccount(){
+		Member member=(Member)this.request.getSession().getAttribute("member");
+		String bankaccount=this.request.getParameter("account");
+		boolean iError=this.systemService.saveAccount(member.getId(),bankaccount);
+		this.entityReturnJson(iError);
+	}
+	
+	
+	
 	
 	
 	/**

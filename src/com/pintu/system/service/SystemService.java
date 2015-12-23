@@ -33,7 +33,7 @@ public class SystemService{
 	 * @return
 	 */
 	public String findFileUrl(){
-		String sql="select csz from sys_param_t where bh=1";
+		String sql="select csz from sys_param_t where bh=3";
 		List<String> list=this.getPublicJdbcDao().getList(sql);
 		return list.get(0);
 	}
@@ -181,7 +181,27 @@ public class SystemService{
 		
 	}
 	
+	//修改头像路径
 	public void saveUserHead(Integer id,String url){
-		this.getPublicJdbcDao().executeSQL("update set AvatarPath="+url+" from tk_member_t where id="+id);
+		this.getPublicJdbcDao().executeSQL("update tk_member_t set AvatarPath="+url+" where id="+id);
 	}
+	
+	
+	//保存支付宝账号
+	public boolean saveAccount(Integer memberid,String account){
+		String sql="select count(1) from tk_member_t where id<>'"+memberid+"' and bankaccount='"+account+"'";
+		int count=this.publicJdbcDao.getTempInt(sql, 0);
+		if(count>0){
+			return false;
+		}else{
+			String SQL="update tk_member_t set bankaccount='"+account+"' where id="+memberid;
+			return this.publicJdbcDao.executeSQL(SQL);
+		}
+	}
+	
+
+	
+	
+	
+	
 }

@@ -7,7 +7,7 @@ ul,ol{ list-style:none;}
 a{text-decoration:underline;color:#000000;}
 a:hover{ color:#df611e;color:#000000;}
 img{ border:none}
-input:focus{ outline:none}
+input:focus{ outline:none} 
 .fl{ float:left}
 .fr{ float:right}
 .rel{ position:relative}

@@ -17,12 +17,12 @@
 	function reset_resetCommit(){
 		var signupemail=$("#input_signup_email").val();
 		var signuppassword=$("#input_signup_password").val();
-
+		
 		var singupInvitationcode=$("#input_singup_Invitationcode").val();
 		var singupcomfirmpwd=$("#input_singup_comfirmpwd").val();
 		var singupfirstname=$("#input_singup_firstname").val();
 		var singuplastname=$("#input_singup_lastname").val();
-
+		
 		//验证邀请码
 		if(singupInvitationcode==""||singupInvitationcode==undefined){
 			public_err_prompt("Invitation code cannot be empty.",$("#input_singup_Invitationcode"));
@@ -78,7 +78,7 @@
 	}
 
 
-
+	
 	function public_err_prompt(nr,obj){
 		obj.css("border","solid 1px rgb(242, 76, 76)");
 		$("#errormsg").html(nr).fadeIn(300).fadeOut(7000);
@@ -88,7 +88,7 @@
 <script>
 $(function(){
 	$(".signup2_input").fadeToggle(1400)
-
+		
 	})
 </script>
 
@@ -110,8 +110,7 @@ $(function(){
 <div class="clear"></div>
 <div class="signup2_or"><span class="fl"></span><font></font><span class="fr"></span></div>
 <div class="signup2_signup2" onclick="reset_resetCommit()">Submit</div>
-<span class="sign2_t">Signing up means you agree with Tekuma's <a href="http://tekuma.io/terms-of-use/">Terms Of Use</a></span>
-<!-- kun -->
+<span class="sign2_t">signing up means you agree with TEKUMA's<a href="#">Term Of Use</a></span>
 
 </div>
 <div class="signup2_footer">
